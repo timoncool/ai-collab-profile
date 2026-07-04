@@ -20,9 +20,15 @@ unflattering, it stays. Report numbers only from `profile.json`, never invent or
 
 1. **Run the analyzer** (Python 3, stdlib only, read-only — it never modifies logs):
    ```
-   python scripts/analyze.py -o profile.json            # all projects
+   python scripts/analyze.py -o profile.json                        # all time, all projects
+   python scripts/analyze.py --days 7 -o profile.json               # last week
+   python scripts/analyze.py --days 30 -o profile.json              # last month
+   python scripts/analyze.py --date-from 2026-06-01 --date-to 2026-06-30 -o profile.json
    python scripts/analyze.py --project <dir-name> -o profile.json   # one project
    ```
+   THE RANGE IS THE USER'S CHOICE: if they named a period («за неделю», "this month",
+   dates), pass it; if they didn't, default to all time and mention that a range is
+   available. Never pick a range for the user silently.
    Default logs location: `~/.claude/projects`. Use `--projects-dir` to override.
    Try `python3` if `python` is missing.
 

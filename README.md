@@ -36,7 +36,9 @@ In any Claude Code session:
 /ai-collab-profile
 ```
 
-or just ask: *"построй мой AI-профиль"* / *"build my AI collaboration profile"*.
+or just ask: *"построй мой AI-профиль"* / *"build my AI collaboration profile"* —
+optionally with a period: *"за неделю"*, *"for the last month"*, *"с 1 по 30 июня"*.
+Default is all time; the range is always your choice (`--days N`, `--date-from/--date-to`).
 
 You get one card — a serious analytical portrait with RPG flavor woven in:
 - **The analytics** (the substance): volume, top imperatives, tone markers, activity by

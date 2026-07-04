@@ -447,15 +447,40 @@ def build_profile(messages):
     }
 
 
+def filter_by_range(messages, days=None, date_from=None, date_to=None):
+    """Keep messages inside the requested window (dates are the ts date part)."""
+    if days:
+        dates = sorted({m["ts"][:10] for m in messages if m["ts"]})
+        if dates:
+            import datetime
+            last = datetime.date.fromisoformat(dates[-1])
+            date_from = (last - datetime.timedelta(days=days - 1)).isoformat()
+            date_to = dates[-1]
+    if not date_from and not date_to:
+        return messages
+    lo = date_from or "0000-00-00"
+    hi = date_to or "9999-99-99"
+    return [m for m in messages if m["ts"] and lo <= m["ts"][:10] <= hi]
+
+
 def main():
     ap = argparse.ArgumentParser(description="AI Collab Profile analyzer (SCALE %s)" % SCALE_VERSION)
     ap.add_argument("--projects-dir", default=os.path.expanduser(os.path.join("~", ".claude", "projects")))
     ap.add_argument("--project", default=None, help="single project dir name (default: all)")
+    ap.add_argument("--days", type=int, default=None,
+                    help="last N days (7 = week, 30 = month); default: all time")
+    ap.add_argument("--date-from", default=None, help="YYYY-MM-DD, inclusive")
+    ap.add_argument("--date-to", default=None, help="YYYY-MM-DD, inclusive")
     ap.add_argument("-o", "--output", default=None, help="write JSON to file (default: stdout)")
     args = ap.parse_args()
 
     messages = collect(args.projects_dir, args.project)
+    messages = filter_by_range(messages, args.days, args.date_from, args.date_to)
     profile = build_profile(messages)
+    if "metrics" in profile:
+        profile["range"] = {"days": args.days, "from": args.date_from, "to": args.date_to,
+                            "mode": ("last_%d_days" % args.days) if args.days
+                                    else ("custom" if (args.date_from or args.date_to) else "all_time")}
     out = json.dumps(profile, ensure_ascii=False, indent=2)
     if args.output:
         with open(args.output, "w", encoding="utf-8") as fh:
