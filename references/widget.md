@@ -182,11 +182,11 @@
 
 ```html
 <!doctype html><html lang="{{lang}}"><head><meta charset="utf-8"><title>Prompt Warrior</title><!-- data-URI фавикон, правило 3а -->
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Cinzel:wght@500;600&family=Crimson+Pro:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Cormorant+SC:wght@500;600;700&family=Cinzel:wght@500;600&family=Crimson+Pro:ital,wght@0,400;0,500;0,600;1,400&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#120e0b;--card:#1C1714;--oak:#251E19;--oak2:#2B231D;--line:#4A3F35;--text:#E8DFD4;--mut:#B3A18C;--brass:#C9A962;--brass-dim:#8F7440;--crimson:#8B2635}
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--text);font:15.5px/1.6 "Crimson Pro",Georgia,serif;display:flex;justify-content:center;padding:28px;margin:0}
+body{background:var(--bg);color:var(--text);font:15.5px/1.6 "Crimson Pro","PT Serif",Georgia,serif;display:flex;justify-content:center;padding:28px;margin:0}
 .card{width:820px;background:linear-gradient(170deg,#201A15 0%,var(--card) 22%,#191411 100%);border:1px solid #3A312A;border-radius:14px;padding:34px 40px;position:relative;
 box-shadow:0 1px 0 rgba(255,255,255,.05) inset,0 -2px 0 rgba(0,0,0,.35) inset,0 2px 6px rgba(0,0,0,.5),0 18px 50px rgba(0,0,0,.55)}
 .card:before{content:"";position:absolute;inset:0;border-radius:14px;pointer-events:none;z-index:2;
@@ -194,16 +194,16 @@ background:radial-gradient(120% 90% at 50% 8%,transparent 50%,rgba(0,0,0,.34) 10
 .card>*{position:relative;z-index:3}
 .card:after{content:"";position:absolute;inset:10px;border:1px solid rgba(201,169,98,.22);border-radius:9px;pointer-events:none}
 h1{font:600 30px/1.22 "Cormorant Garamond",Georgia,serif;margin:8px 0 3px;text-shadow:0 1px 0 rgba(0,0,0,.6)}
-h2{font:600 12.5px "Cinzel",Georgia,serif;letter-spacing:.2em;text-transform:uppercase;color:var(--brass);margin:26px 0 12px;display:flex;align-items:center;gap:11px}
+h2{font:600 12.5px "Cinzel","Cormorant SC",Georgia,serif;letter-spacing:.2em;text-transform:uppercase;color:var(--brass);margin:26px 0 12px;display:flex;align-items:center;gap:11px}
 h2:before{content:"";width:24px;height:1px;background:linear-gradient(90deg,transparent,var(--brass-dim))}
 h2:after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--brass-dim),transparent 85%)}
 .muted{color:var(--mut);font-size:13px}
 a{color:var(--brass);text-decoration:none;border-bottom:1px dotted var(--brass-dim)}a:hover{color:#E0C685}
 .head{display:flex;gap:20px;align-items:center;padding-bottom:16px;border-bottom:1px solid rgba(201,169,98,.25);position:relative}
 .head img{width:156px;height:156px;border-radius:14px;border:2px solid rgba(201,169,98,.4);background:#171310;box-shadow:0 3px 10px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.1);flex:none}
-.ident{font:600 13px "Cinzel",Georgia,serif;letter-spacing:.08em;color:var(--brass)}
+.ident{font:600 13px "Cinzel","Cormorant SC",Georgia,serif;letter-spacing:.08em;color:var(--brass)}
 .lvl{flex:none;text-align:center;padding:11px 13px;border:1px solid rgba(201,169,98,.4);border-radius:10px;background:linear-gradient(180deg,#2B231D,#1E1813);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 3px 8px rgba(0,0,0,.45)}
-.lvl b{display:block;font:600 22px "Cinzel",Georgia,serif;color:var(--brass);letter-spacing:.04em}
+.lvl b{display:block;font:600 22px "Cinzel","Cormorant SC",Georgia,serif;color:var(--brass);letter-spacing:.04em}
 .lvl span{display:block;font-size:10px;color:var(--mut);letter-spacing:.14em;text-transform:uppercase;margin-top:2px}
 .chron{font-size:15px;line-height:1.65;color:#D5C9B8}
 .chron p{margin:0 0 10px}
@@ -212,6 +212,7 @@ a{color:var(--brass);text-decoration:none;border-bottom:1px dotted var(--brass-d
 .dstrip{margin-top:12px;padding:6px 13px;border:1px solid #3A312A;border-radius:8px;font-size:13px;color:var(--mut);background:rgba(37,30,25,.7)}
 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:11px}
 .grid6{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
 .tile{background:linear-gradient(180deg,var(--oak2),var(--oak));border-radius:9px;padding:11px 13px;border:1px solid #352C24;box-shadow:inset 0 1px 0 rgba(255,255,255,.05),inset 0 -2px 4px rgba(0,0,0,.35),0 1px 2px rgba(0,0,0,.4)}
 .tile b{font-size:21px;display:block;font-variant-numeric:tabular-nums;font-family:"Cormorant Garamond",Georgia,serif;font-weight:700}
 .tile span{font-size:12.5px;line-height:1.45;color:#C0AF9A;display:block;margin-top:2px}
@@ -241,16 +242,16 @@ a{color:var(--brass);text-decoration:none;border-bottom:1px dotted var(--brass-d
 .aico{flex:none;width:54px;height:54px;display:flex;align-items:center;justify-content:center;border:1px solid;border-radius:11px;background:radial-gradient(circle at 50% 35%,#2E2620,#191411 78%);box-shadow:inset 0 2px 5px rgba(0,0,0,.5),inset 0 -1px 0 rgba(255,255,255,.05)}
 .atx{min-width:0}
 .ac .nm{font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;font-size:16px;line-height:1.25}
-.ac .rar{font-family:"Cinzel",Georgia,serif;text-transform:uppercase;letter-spacing:.1em;font-size:8.5px;margin-left:7px;opacity:.85}
+.ac .rar{font-family:"Cinzel","Cormorant SC",Georgia,serif;text-transform:uppercase;letter-spacing:.1em;font-size:8.5px;margin-left:7px;opacity:.85}
 .ac .fl{font-size:12.5px;color:#C0AF9A;line-height:1.4;margin-top:3px}
 .ac .cd{font-size:11.5px;color:var(--mut);font-style:italic;margin-top:2px}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:4px 36px;align-items:start}
 .more{margin-top:12px}
-.more summary{cursor:pointer;list-style:none;text-align:center;font:600 11.5px "Cinzel",Georgia,serif;letter-spacing:.14em;text-transform:uppercase;color:var(--brass);padding:8px 14px;border:1px solid rgba(201,169,98,.35);border-radius:9px;background:linear-gradient(180deg,var(--oak2),#221B16);box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 2px 3px rgba(0,0,0,.4)}
+.more summary{cursor:pointer;list-style:none;text-align:center;font:600 11.5px "Cinzel","Cormorant SC",Georgia,serif;letter-spacing:.14em;text-transform:uppercase;color:var(--brass);padding:8px 14px;border:1px solid rgba(201,169,98,.35);border-radius:9px;background:linear-gradient(180deg,var(--oak2),#221B16);box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 2px 3px rgba(0,0,0,.4)}
 .more summary::-webkit-details-marker{display:none}
 .more summary:hover{color:#E0C685;border-color:rgba(201,169,98,.6)}
 .more[open] summary{opacity:.65}
-.h3{font:600 10.5px "Cinzel",Georgia,serif;letter-spacing:.18em;text-transform:uppercase;color:#9A8668;margin:16px 0 9px}
+.h3{font:600 10.5px "Cinzel","Cormorant SC",Georgia,serif;letter-spacing:.18em;text-transform:uppercase;color:#9A8668;margin:16px 0 9px}
 .lb2{display:flex;flex-direction:column;line-height:1.15}
 .lb2 b{font-size:13.5px;font-weight:600;color:var(--text)}
 .lb2 i{font-style:normal;font-size:10.5px;color:#8F7E6B}
@@ -262,7 +263,7 @@ a{color:var(--brass);text-decoration:none;border-bottom:1px dotted var(--brass-d
 .ch .tip:after{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);border:7px solid transparent;border-top-color:#55483A}
 .ch:hover .tip{visibility:visible;opacity:1}
 .ch .tip b{font-family:"Cormorant Garamond",Georgia,serif;font-size:15px}
-.ch .tip .rar{font-family:"Cinzel",Georgia,serif;text-transform:uppercase;letter-spacing:.1em;font-size:9.5px;margin-left:7px}
+.ch .tip .rar{font-family:"Cinzel","Cormorant SC",Georgia,serif;text-transform:uppercase;letter-spacing:.1em;font-size:9.5px;margin-left:7px}
 .ch .tip .cond{display:block;margin-top:4px;color:var(--mut);font-size:11.5px;font-style:italic}
 .wch{display:inline-block;background:linear-gradient(180deg,var(--oak2),#221B16);border:1px solid #352C24;border-radius:13px;padding:2px 11px;font-size:13px;color:#C0AF9A;margin:0 4px 6px 0}
 ul{margin:0;padding-left:21px}li{margin-bottom:6px;font-size:14.5px}
@@ -272,7 +273,7 @@ ul.plus li::marker{color:#A9BC6E}
 .fix .a{color:#B9C692;font-size:14px;margin-top:2px}
 .fix .ev{color:var(--mut);font-size:12px;font-style:italic}
 .foot{margin-top:26px;border-top:1px solid #3A312A;padding-top:13px;display:flex;justify-content:space-between;position:relative}
-.seal{position:absolute;right:2px;top:-26px;width:46px;height:46px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#A63A48,var(--crimson) 55%,#5E1822);box-shadow:inset 0 2px 4px rgba(255,255,255,.18),inset 0 -3px 6px rgba(0,0,0,.45),0 3px 8px rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;font:600 14px "Cinzel",Georgia,serif;color:#E8CFB4;text-shadow:0 -1px 1px rgba(0,0,0,.5)}
+.seal{position:absolute;right:2px;top:-26px;width:46px;height:46px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#A63A48,var(--crimson) 55%,#5E1822);box-shadow:inset 0 2px 4px rgba(255,255,255,.18),inset 0 -3px 6px rgba(0,0,0,.45),0 3px 8px rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;font:600 14px "Cinzel","Cormorant SC",Georgia,serif;color:#E8CFB4;text-shadow:0 -1px 1px rgba(0,0,0,.5)}
 </style></head><body><div class="card">
 
 <div class="head">
@@ -322,7 +323,7 @@ ul.plus li::marker{color:#A9BC6E}
 </div>
 
 <h2><!-- иконка секции -->Боевые повадки</h2>
-<div class="grid6"><!-- 12 тайлов (2 ряда): прерывания/100 · точка кипения №N (+% вскипевших) · оборотень ×K ·
+<div class="grid4"><!-- 12 тайлов (3 ряда по 4 — шире, текст не в столбик): прерывания/100 · точка кипения №N (+% вскипевших) · оборотень ×K ·
 скриншоты/100 · дабл-тексты/100 · вызовы субагентов · «нет»-открытия % · код-свитчинг % ·
 вопрос-микс (что/как/почему %) · ошибки инструментов % · thinking-доля % · число ачивок.
 Тайлы с null-метрикой (напр. оборотень без ночной выборки) — опускать --></div>

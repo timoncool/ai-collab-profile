@@ -325,12 +325,12 @@ def render(p, content, lang, avatar):
     top_proj = a["top_projects"][0] if a["top_projects"] else {"name": "?", "share_pct": 0}
 
     return ("""<!doctype html><html lang="%(lang)s"><head><meta charset="utf-8"><title>Prompt Warrior</title>%(favicon)s
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Cinzel:wght@500;600&family=Crimson+Pro:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Cormorant+SC:wght@500;600;700&family=Cinzel:wght@500;600&family=Crimson+Pro:ital,wght@0,400;0,500;0,600;1,400&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>%(css)s</style></head><body><div class="card">
 
 <div class="head">
 %(avatar)s<div style="flex:1">
-<div class="muted" style="font-family:'Cinzel',Georgia,serif;letter-spacing:.3em;font-size:10.5px">PROMPT WARRIOR</div>
+<div class="muted" style="font-family:'Cinzel','Cormorant SC',Georgia,serif;letter-spacing:.3em;font-size:10.5px">PROMPT WARRIOR</div>
 <h1>%(h1)s</h1>
 <div class="ident">%(ident)s</div>
 <div class="muted" style="margin-top:6px">%(corpus)s</div>
@@ -394,7 +394,7 @@ def render(p, content, lang, avatar):
 </div>
 
 %(h_hab)s
-<div class="grid6">
+<div class="grid4">
 %(hab)s
 </div>
 <div class="cols">
@@ -421,7 +421,7 @@ def render(p, content, lang, avatar):
 %(h_weak)s
 %(fixes)s
 
-<div class="foot muted"><span style="font-family:'Cinzel',Georgia,serif;letter-spacing:.15em;font-size:11px">SCALE %(scale)s</span><span class="seal">%(seal)s</span><span style="text-align:right">%(star)s<br><a href="https://github.com/timoncool/prompt-warrior">github.com/timoncool/prompt-warrior</a></span></div>
+<div class="foot muted"><span style="font-family:'Cinzel','Cormorant SC',Georgia,serif;letter-spacing:.15em;font-size:11px">SCALE %(scale)s</span><span class="seal">%(seal)s</span><span style="text-align:right">%(star)s<br><a href="https://github.com/timoncool/prompt-warrior">github.com/timoncool/prompt-warrior</a></span></div>
 </div></body></html>""" % {
         "lang": lang, "favicon": icons.favicon(), "css": css_from_template(),
         "avatar": avatar_tag, "h1": h1,

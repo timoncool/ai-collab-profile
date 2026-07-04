@@ -13,3 +13,7 @@ package (MIT); monster art set2 by Hrvoje Novakovic (CC BY 3.0).
 
 Project emblem: `assets/swords-emblem.svg` by Lorc (game-icons.net, CC BY 3.0) —
 used with a PW monogram in `assets/logo.svg`, the card favicon and the footer seal.
+
+As of SCALE v1.5 every achievement has a DEDICATED icon (74 named files);
+authors per the game-icons repo folders: Lorc, Delapouite, Skoll, Carl Olsen and
+others — all CC BY 3.0. The _<rarity>.svg badges remain as a safety fallback.
