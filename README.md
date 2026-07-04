@@ -77,8 +77,6 @@ are frozen, nobody gets one for free.
 - **Strong & weak** — with a fix and a source for every weakness
 - **Progress between visits** — come back in a week: new achievements, level-ups,
   metric shifts. That's the share-worthy moment.
-- **Duel a friend** — exchange `profile.json` files and run `scripts/compare.py` for a
-  versus card; the frozen scale makes it a fair fight.
 
 Everything ships in both **RU and EN**, symmetrically — the card speaks your language.
 Cross-harness aware: session-log formats for Codex CLI, OpenCode, Gemini CLI and Copilot
