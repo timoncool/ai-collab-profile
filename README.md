@@ -4,7 +4,7 @@
 
 # Prompt Warrior
 
-**Your Claude Code logs are hiding a character sheet. We found it.**
+**Your AI agent's logs are hiding a character sheet. We found it.**
 
 [![License](https://img.shields.io/github/license/timoncool/prompt-warrior?style=flat-square)](LICENSE)
 [![Stars](https://img.shields.io/github/stars/timoncool/prompt-warrior?style=flat-square)](https://github.com/timoncool/prompt-warrior/stargazers)
@@ -17,8 +17,9 @@
 
 </div>
 
-Prompt Warrior is a Claude Code skill that reads your local session logs and turns them
-into something between a psychological profile and an RPG character sheet: real numbers
+Prompt Warrior is an agent skill that reads your local session logs — Claude Code out
+of the box; Codex CLI, OpenCode, Gemini CLI and Copilot via documented log formats — and
+turns them into something between a psychological profile and an RPG character sheet: real numbers
 on a fixed scale, a title you didn't choose but absolutely deserve, and achievements
 you've been grinding for months without knowing it. Runs 100% locally on stdlib Python —
 nothing ever leaves your machine.

@@ -4,7 +4,7 @@
 
 # Prompt Warrior
 
-**В твоих логах Claude Code спрятан лист персонажа. Мы его нашли.**
+**В логах твоего ИИ-агента спрятан лист персонажа. Мы его нашли.**
 
 [![License](https://img.shields.io/github/license/timoncool/prompt-warrior?style=flat-square)](LICENSE)
 [![Stars](https://img.shields.io/github/stars/timoncool/prompt-warrior?style=flat-square)](https://github.com/timoncool/prompt-warrior/stargazers)
@@ -17,8 +17,9 @@
 
 </div>
 
-Prompt Warrior — скилл для Claude Code, который читает локальные логи сессий и
-превращает их в нечто среднее между психологическим портретом и RPG-листом персонажа:
+Prompt Warrior — агентский скилл, который читает локальные логи сессий — Claude Code
+из коробки; Codex CLI, OpenCode, Gemini CLI и Copilot по задокументированным форматам —
+и превращает их в нечто среднее между психологическим портретом и RPG-листом персонажа:
 реальные цифры по фиксированной шкале, титул, который вы не выбирали, но точно
 заслужили, и ачивки, которые вы месяцами фармили, сами того не зная. Работает полностью
 локально на stdlib Python — наружу не уходит ничего.
