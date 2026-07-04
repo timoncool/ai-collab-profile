@@ -1,11 +1,13 @@
 {
   "name": "prompt-warrior",
-  "owner": { "name": "timoncool" },
+  "owner": {
+    "name": "timoncool"
+  },
   "plugins": [
     {
       "name": "prompt-warrior",
       "source": "./",
-      "description": "Gamified analytical portrait of how you work with AI: fixed-scale metrics from your Claude Code logs, fun titles, achievements, research-backed prompting advice. Local-only."
+      "description": "Your AI agent's logs as a gamified character sheet: 74 achievements, fixed-scale metrics, LLM-written chronicle, research-backed prompting advice. Claude Code out of the box; Codex/OpenCode/Gemini/Copilot via documented formats. 100% local, RU/EN."
     }
   ]
 }

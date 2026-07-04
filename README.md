@@ -82,6 +82,18 @@ Everything ships in both **RU and EN**, symmetrically — the card speaks your l
 Cross-harness aware: session-log formats for Codex CLI, OpenCode, Gemini CLI and Copilot
 are documented in [references/harnesses.md](references/harnesses.md).
 
+## The inline widget
+
+The same card renders as a live widget right in the chat — with an "Open HTML card"
+button, hover unlock conditions and the achievements accordion:
+
+<div align="center">
+
+![Inline widget — title, chronicle, gauges](docs/screenshots/widget-1.png)
+![Inline widget — arsenal, habits, achievements](docs/screenshots/widget-2.png)
+
+</div>
+
 ## Quick Start
 
 1. **Clone**
