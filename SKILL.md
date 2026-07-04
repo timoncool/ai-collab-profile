@@ -37,12 +37,19 @@ unflattering, it stays. Report numbers only from `profile.json`, never invent or
      needed; stop.
    - `"low_confidence": true` (< 100 messages) → include a visible "small sample" caveat.
 
-3. **Build the card from the template** in `references/widget.md` — fill it with
-   profile.json data EXACTLY as the template prescribes: same CSS, same section order,
-   strengths and weakness→fix pairs picked by the template's rules, every number
-   printed exactly once. Write the result as `ai-profile.html` to the working
-   directory and tell the user the path. If an inline widget tool is available,
-   additionally render an inline widget mirroring the same sections and numbers.
+3. **Build and SHOW the card** — output degrades gracefully, in this order:
+   a. Fill the template from `references/widget.md` with profile.json data EXACTLY as
+      it prescribes (same CSS, same section order, rule-picked strengths and
+      weakness→fix pairs, every number printed exactly once) and write
+      `ai-profile.html` to the working directory. Tell the user the path.
+   b. OPEN it for the user: if a preview panel/tool is available, open it there;
+      otherwise open in the default browser (`start` on Windows, `open` on macOS,
+      `xdg-open` on Linux). Do not make the user open the file by hand.
+   c. If an inline widget tool is available, ALSO render an inline widget mirroring
+      the same sections and numbers.
+   d. If NONE of the above is available (headless/console-only environment), render
+      the card as TEXT in the console following the text-fallback spec at the end of
+      `references/widget.md` — same sections, same numbers, bars as unicode blocks.
 
 4. **Explain the profile** in the user's conversation language (the widget carries both
    RU and EN labels from profile.json). If `profile.delta` is present and non-null,
