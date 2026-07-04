@@ -1,4 +1,4 @@
-# SCALE v1.3 — fixed scoring contract
+# SCALE v1.4 — fixed scoring contract
 
 v1.1: формулы всех метрик и индексов НЕ менялись относительно v1 (профили сравнимы);
 расширен набор ачивок (24 → 41) и эпитетов (7 → 11), добавлены метрики
@@ -13,6 +13,12 @@ v1.3: новые сигналы (формулы заморожены): interrupt
 сессиям от 5 реплик + boiled_sessions_pct; werewolf_ratio — (мат ночью 00-06)/(мат днём 09-18),
 только при ≥50 реплик в каждой зоне; signature_words — топ-8 частотных слов юзера вне
 стоп-листа и лексиконов (порог: max(5, реплик/150)).
+v1.4: слои «экономика» (usage-токены ассистента: output/fresh-input/cache-read/cache-creation,
+cache_efficiency = cache_read/(input+cache_read)) и «арсенал» (tool_use-вызовы по именам,
+категории: operator=Bash+PowerShell, surgeon=Edit/Write, archaeologist=Read/Grep/Glob;
+mcp-доля; модели; проекты по cwd; tool-ошибки по is_error), плюс images_per_100, pr_count
+(дедуп по URL), plan_mode_count. ВАЖНО: слои v1.4 считаются по всему корпусу источника и
+НЕ фильтруются --days/--date (v1.4-ограничение, задокументировано).
 
 Все формулы реализованы в `scripts/analyze.py` и зафиксированы. Изменение любой константы =
 новая версия шкалы (v2, v3...) и несравнимость со старыми результатами. / All formulas are

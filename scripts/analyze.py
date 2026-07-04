@@ -20,7 +20,7 @@ import re
 import sys
 from collections import Counter
 
-SCALE_VERSION = "v1.3"  # v1: базовые формулы; v1.1: +ачивки/эпитеты; v1.2: +гейджи; v1.3: +прерывания, точка кипения, оборотень, словарь
+SCALE_VERSION = "v1.4"  # v1..v1.3 без изменений; v1.4: +экономика токенов, арсенал, проекты, скриншоты, PR, plan-mode (слои поверх)
 
 # ---------------------------------------------------------------- extraction
 
@@ -60,6 +60,61 @@ def extract_text(entry):
     return text
 
 
+def new_aux():
+    return {"interruptions": 0, "assistant_msgs": 0, "thinking": 0, "images": 0,
+            "tool_errors": 0, "prs": 0, "plan_modes": 0, "queued": 0,
+            "tok_in": 0, "tok_out": 0, "tok_cache_read": 0, "tok_cache_new": 0,
+            "pr_urls": set(),
+            "tools": Counter(), "models": Counter(), "projects": Counter()}
+
+
+def harvest(entry, aux):
+    """Дешёвые слои v1.4: токены, инструменты, модели, проекты, PR — из уже распарсенной строки."""
+    t = entry.get("type")
+    if t == "assistant":
+        aux["assistant_msgs"] += 1
+        msg = entry.get("message") or {}
+        u = msg.get("usage") or {}
+        for src, dst in (("input_tokens", "tok_in"), ("output_tokens", "tok_out"),
+                         ("cache_read_input_tokens", "tok_cache_read"),
+                         ("cache_creation_input_tokens", "tok_cache_new")):
+            v = u.get(src)
+            if isinstance(v, int):
+                aux[dst] += v
+        model = msg.get("model")
+        if model and not str(model).startswith("<"):
+            aux["models"][model] += 1
+        c = msg.get("content")
+        if isinstance(c, list):
+            for b in c:
+                if not isinstance(b, dict):
+                    continue
+                if b.get("type") == "tool_use":
+                    aux["tools"][b.get("name", "?")] += 1
+                elif b.get("type") == "thinking":
+                    aux["thinking"] += 1
+    elif t == "user":
+        cwd = entry.get("cwd")
+        if cwd:
+            aux["projects"][cwd] += 1
+        c = (entry.get("message") or {}).get("content")
+        if isinstance(c, list):
+            for b in c:
+                if isinstance(b, dict):
+                    if b.get("type") == "image":
+                        aux["images"] += 1
+                    elif b.get("type") == "tool_result" and b.get("is_error"):
+                        aux["tool_errors"] += 1
+    elif t == "pr-link":
+        aux.setdefault("pr_urls", set()).add(entry.get("prUrl") or entry.get("prNumber") or "?")
+    elif t == "mode":
+        if entry.get("mode") == "plan":
+            aux["plan_modes"] += 1
+    elif t == "queue-operation":
+        if entry.get("operation") == "enqueue":
+            aux["queued"] += 1
+
+
 def collect(projects_dir, project=None, aux=None):
     pattern = os.path.join(projects_dir, project or "*", "*.jsonl")
     files = [f for f in glob.glob(pattern)
@@ -67,7 +122,7 @@ def collect(projects_dir, project=None, aux=None):
              and os.path.basename(f) != "journal.jsonl"]
     seen_uuid, seen_text = set(), set()
     if aux is not None:
-        aux.setdefault("interruptions", 0)
+        aux.update({k: v for k, v in new_aux().items() if k not in aux})
     messages = []  # dicts: text, words, voice, ts, session
     for path in files:
         session = os.path.basename(path)[:-6]
@@ -84,6 +139,8 @@ def collect(projects_dir, project=None, aux=None):
                     entry = json.loads(line)
                 except json.JSONDecodeError:
                     continue
+                if aux is not None:
+                    harvest(entry, aux)
                 text = extract_text(entry)
                 if text is None:
                     if aux is not None and entry.get("type") == "user":
@@ -590,6 +647,24 @@ ACHIEVEMENTS = [
      lambda m, r: m.get("boiling_point_median") is not None and m["boiling_point_median"] <= 3),
     ("werewolf", "Оборотень", "Werewolf", "epic", "Меняющийся в Полночь", "The Midnight Turner",
      lambda m, r: (m.get("werewolf_ratio") or 0) >= 1.5),
+    ("shipper", "Шиппер", "Shipper", "epic", "Доставляющий", "The One Who Ships",
+     lambda m, r: m.get("pr_count", 0) >= 5),
+    ("first_pr", "Первый PR", "First PR", "common", "Открывший Счёт", "First Blood on Main",
+     lambda m, r: m.get("pr_count", 0) >= 1),
+    ("screenshotter", "Скриншотер", "Screenshotter", "rare", "Показывающий, не Рассказывающий", "Shower, Not Teller",
+     lambda m, r: m.get("images_per_100", 0) >= 3),
+    ("cache_magnate", "Кэш-магнат", "Cache Magnate", "rare", "Повелитель Кэша", "Lord of the Cache",
+     lambda m, r: (m.get("cache_efficiency_pct") or 0) >= 85),
+    ("token_furnace", "Печатный станок", "Token Furnace", "epic", "Сжигающий Миллионы", "Burner of Millions",
+     lambda m, r: m.get("tokens_output_m", 0) >= 5),
+    ("planner", "Плановик", "The Planner", "rare", "Семь Раз Отмеряющий", "Measurer of Seven Times",
+     lambda m, r: m.get("plan_mode_count", 0) >= 10),
+    ("cowboy", "Ковбой", "Cowboy", "common", "Стреляющий с Бедра", "Shooter from the Hip",
+     lambda m, r: m.get("plan_mode_count", 99) == 0 and m["sessions"] >= 50),
+    ("multitool", "Мультитул", "Multitool", "rare", "Мастер Арсенала", "Master of the Arsenal",
+     lambda m, r: m.get("distinct_tools", 0) >= 15),
+    ("tool_breaker", "Ломатель", "Toolbreaker", "rare", "Испытатель Пределов", "Tester of Limits",
+     lambda m, r: m.get("tool_error_pct", 0) >= 5),
 ]
 
 
@@ -731,6 +806,24 @@ ACHIEVEMENT_DESCS = {
                    "The spark comes by message three", "median first flare-up at message ≤ 3 of a session"),
     "werewolf": ("После полуночи вами пишет кто-то другой", "ночной мат чаще дневного в ≥ 1.5 раза",
                  "Someone else types through you after midnight", "night profanity ≥ 1.5x the daytime rate"),
+    "shipper": ("Сессии кончаются пулл-реквестами, а не разговорами", "≥ 5 PR из сессий",
+                "Sessions end in pull requests, not conversations", "≥ 5 PRs born from sessions"),
+    "first_pr": ("Первый PR из сессии — дальше пойдёт легче", "≥ 1 PR из сессий",
+                 "First PR from a session", "≥ 1 PR born from a session"),
+    "screenshotter": ("Зачем описывать, если можно показать", "≥ 3 картинки на 100 реплик",
+                      "Why describe when you can show", "≥ 3 images per 100 messages"),
+    "cache_magnate": ("Контекст переиспользуется, а не оплачивается заново", "кэш-чтения ≥ 85% входного контекста",
+                      "Context is reused, not repurchased", "cache reads ≥ 85% of input context"),
+    "token_furnace": ("Миллионы токенов выхода — производство не останавливается", "≥ 5 млн токенов сгенерировано",
+                      "Millions of output tokens — production never stops", "≥ 5M output tokens generated"),
+    "planner": ("Сначала план, потом код — и так десять раз подряд", "план-режим ≥ 10 раз",
+                "Plan first, code second — ten times over", "plan mode entered ≥ 10 times"),
+    "cowboy": ("План-режим? Не слышал", "0 включений план-режима при 50+ сессиях",
+               "Plan mode? Never heard of it", "0 plan-mode entries across 50+ sessions"),
+    "multitool": ("В арсенале больше инструментов, чем у иного цеха", "≥ 15 разных инструментов в ходу",
+                  "More tools in rotation than some whole teams", "≥ 15 distinct tools used"),
+    "tool_breaker": ("Инструменты не выдерживают темпа", "≥ 5% вызовов инструментов с ошибкой",
+                     "The tools cannot keep up", "≥ 5% of tool calls error out"),
 }
 
 
@@ -751,11 +844,64 @@ def compute_achievements(m, rage):
     return earned
 
 
+TOOL_CATS = {
+    "operator": ("Bash", "PowerShell"),
+    "surgeon": ("Edit", "Write", "NotebookEdit"),
+    "archaeologist": ("Read", "Grep", "Glob"),
+}
+
+
+def build_layers(aux, n_messages):
+    """Опциональные слои v1.4 (экономика/арсенал) — если источник их отдал."""
+    if not aux or not aux.get("assistant_msgs"):
+        return None, None
+    tok_in, tok_out = aux["tok_in"], aux["tok_out"]
+    cache_read, cache_new = aux["tok_cache_read"], aux["tok_cache_new"]
+    context_total = tok_in + cache_read
+    economy = {
+        "tokens_output": tok_out,
+        "tokens_input_fresh": tok_in,
+        "tokens_cache_read": cache_read,
+        "tokens_cache_creation": cache_new,
+        "cache_efficiency_pct": round(100.0 * cache_read / context_total, 1) if context_total else None,
+        "assistant_messages": aux["assistant_msgs"],
+        "thinking_blocks": aux["thinking"],
+    }
+    total_tools = sum(aux["tools"].values())
+    cats = {}
+    for cat, names in TOOL_CATS.items():
+        cats[cat] = round(100.0 * sum(aux["tools"].get(n, 0) for n in names) / total_tools, 1) if total_tools else 0
+    mcp_calls = sum(c for n, c in aux["tools"].items() if n.startswith("mcp__"))
+    proj_total = sum(aux["projects"].values())
+    top_projects = [{"name": os.path.basename(n.rstrip("\\/")) or n, "share_pct": round(100.0 * c / proj_total, 1)}
+                    for n, c in aux["projects"].most_common(5)] if proj_total else []
+    arsenal = {
+        "tool_calls": total_tools,
+        "distinct_tools": len(aux["tools"]),
+        "top_tools": [{"name": n, "count": c} for n, c in aux["tools"].most_common(8)],
+        "category_shares_pct": cats,
+        "mcp_share_pct": round(100.0 * mcp_calls / total_tools, 1) if total_tools else 0,
+        "models": [{"name": n, "count": c} for n, c in aux["models"].most_common(5)],
+        "projects_count": len(aux["projects"]),
+        "top_projects": top_projects,
+        "tool_error_pct": round(100.0 * aux["tool_errors"] / total_tools, 1) if total_tools else 0,
+    }
+    return economy, arsenal
+
+
 def build_profile(messages, aux=None):
     m = compute_metrics(messages)
     n_int = (aux or {}).get("interruptions", 0)
     m["interruptions"] = n_int
     m["interruptions_per_100"] = round(100.0 * n_int / m["messages"], 1) if m["messages"] else 0
+    economy, arsenal = build_layers(aux, m["messages"])
+    m["images_per_100"] = round(100.0 * (aux or {}).get("images", 0) / m["messages"], 1) if m["messages"] else 0
+    m["pr_count"] = len((aux or {}).get("pr_urls", set()))
+    m["plan_mode_count"] = (aux or {}).get("plan_modes", 0)
+    m["tool_error_pct"] = arsenal["tool_error_pct"] if arsenal else 0
+    m["distinct_tools"] = arsenal["distinct_tools"] if arsenal else 0
+    m["cache_efficiency_pct"] = economy["cache_efficiency_pct"] if economy else None
+    m["tokens_output_m"] = round(economy["tokens_output"] / 1e6, 1) if economy else 0
     if m["messages"] < 30:
         return {"error": "not_enough_data", "messages": m["messages"],
                 "note": "Need at least 30 user messages for a profile."}
@@ -782,6 +928,8 @@ def build_profile(messages, aux=None):
         "title": {"ru": title_ru, "en": title_en},
         "achievements": achievements,
         "gauges": compute_gauges(m, rage),
+        "economy": economy,
+        "arsenal": arsenal,
     }
 
 

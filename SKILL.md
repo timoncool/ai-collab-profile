@@ -31,6 +31,9 @@ unflattering, it stays. Report numbers only from `profile.json`, never invent or
    available. Never pick a range for the user silently.
    Default logs location: `~/.claude/projects`. Use `--projects-dir` to override.
    Try `python3` if `python` is missing.
+   RUNNING IN A DIFFERENT HARNESS (OpenCode, Codex CLI, Gemini CLI, Copilot)?
+   See `references/harnesses.md` — known log locations and formats, and how to plug a
+   new source into SOURCES. If your paths differ, orient by analogy as described there.
 
 2. **Read `profile.json`.**
    - `{"error": "not_enough_data"}` → tell the user at least 30 of their own messages are
@@ -78,6 +81,8 @@ unflattering, it stays. Report numbers only from `profile.json`, never invent or
 - If the user asks to compare with friends: they run the same skill and exchange
   profile.json files; then `python scripts/compare.py mine.json theirs.json` prints a
   duel card. Identical scale version = comparable; the script warns otherwise.
+- v1.4 layers (economy/arsenal) are computed over the WHOLE corpus regardless of the
+  chosen period — say so if the user picked a range.
 - Juicy v1.3 signals for narration when notable: interruptions_per_100 (impatience),
   boiling_point_median + boiled_sessions_pct (how fast sessions heat up),
   werewolf_ratio (night vs day profanity), signature_words (the user's own vocabulary —

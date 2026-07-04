@@ -44,7 +44,7 @@ tie-break по порядку строк:
 | praise ≥ 8% | Щедрый | Openhanded |
 | default | Странствующий | Wandering |
 
-## Achievements (45, редкость по паттерну bronze/silver/gold + legendary)
+## Achievements (54, редкость по паттерну bronze/silver/gold + legendary)
 
 | ID | RU | EN | Rarity | Condition |
 |----|----|----|--------|-----------|
@@ -92,6 +92,15 @@ tie-break по порядку строк:
 | patient_one | Долготерпеливый | The Patient One | rare | < 1 прерывания на 100 при 300+ репликах |
 | short_fuse | Короткий фитиль | Short Fuse | epic | медианная первая вспышка ≤ 3-й реплики сессии |
 | werewolf | Оборотень | Werewolf | epic | ночной мат ≥ 1.5× дневного |
+| shipper | Шиппер | Shipper | epic | ≥ 5 PR из сессий |
+| first_pr | Первый PR | First PR | common | ≥ 1 PR из сессий |
+| screenshotter | Скриншотер | Screenshotter | rare | ≥ 3 картинки на 100 реплик |
+| cache_magnate | Кэш-магнат | Cache Magnate | rare | кэш ≥ 85% входного контекста |
+| token_furnace | Печатный станок | Token Furnace | epic | ≥ 5 млн токенов сгенерировано |
+| planner | Плановик | The Planner | rare | план-режим ≥ 10 раз |
+| cowboy | Ковбой | Cowboy | common | 0 план-режимов при 50+ сессиях |
+| multitool | Мультитул | Multitool | rare | ≥ 15 разных инструментов |
+| tool_breaker | Ломатель | Toolbreaker | rare | ≥ 5% вызовов инструментов с ошибкой |
 
 Принцип прогрессии (по модели GitHub Achievements с тирами Bronze/Silver/Gold): часть ачивок
 образует лестницы — «Клуб ста» → «Тысяча голосов» (объём), «Спринтер» → «Романист» (стиль).
