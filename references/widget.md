@@ -11,7 +11,7 @@
    на ранние словами («медиана — в Объёме», «см. маркеры»), не перепечатывают.
 2. Замечание про исследования тона — один раз, под градусом ярости. Больше нигде.
 2а. Все упоминания источников (arxiv, Anthropic docs) — КЛИКАБЕЛЬНЫЕ <a href>, не голый текст.
-2б. Каждый чип ачивки несёт title с редкостью и условием (данные — desc_ru/desc_en из profile.json).
+2б. Каждый чип ачивки несёт стилизованный CSS-тултип (.tip): название + редкость + флейвор (desc_*) + условие (cond_*) из profile.json. Браузерный атрибут title не использовать.
 3. Никаких картинок: ни аватаров, ни иконок, ни SVG, ни base64, ни внешних ресурсов.
 4. Отдельной секции «Рекомендации» НЕТ — советы живут парами в «Слабое → что делать».
 5. Числа — из profile.json как есть, без округлений и смягчений.
@@ -87,7 +87,13 @@ a:hover{color:#c4b5fd}
 .rage{height:8px;border-radius:4px;background:linear-gradient(90deg,#22c55e,#eab308,#ef4444);position:relative;margin-top:8px}
 .rage s{position:absolute;top:-4px;width:3px;height:16px;background:#fff;border-radius:2px;text-decoration:none}
 .chips{display:flex;flex-wrap:wrap;gap:7px}
-.ch{border:1px solid;border-radius:14px;padding:2.5px 12px;font-size:12.5px}
+.ch{border:1px solid;border-radius:14px;padding:2.5px 12px;font-size:12.5px;position:relative;cursor:default}
+.ch .tip{visibility:hidden;opacity:0;transition:opacity .15s;position:absolute;bottom:130%;left:50%;transform:translateX(-50%);width:256px;background:#221a38;border:1px solid #3a2f58;border-radius:10px;padding:10px 13px;font-size:12px;line-height:1.55;color:var(--text);z-index:9;box-shadow:0 8px 28px rgba(0,0,0,.55);white-space:normal}
+.ch .tip:after{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:#3a2f58}
+.ch:hover .tip{visibility:visible;opacity:1}
+.ch .tip b{font-size:12.5px}
+.ch .tip .rar{text-transform:uppercase;letter-spacing:.08em;font-size:10px;margin-left:6px}
+.ch .tip .cond{display:block;margin-top:4px;color:var(--mut);font-size:11px}
 ul{margin:0;padding-left:20px}li{margin-bottom:6px;font-size:14px}
 ul.plus li::marker{color:#22c55e}
 .fix{margin-bottom:13px;padding-left:12px;border-left:2px solid #7f1d1d}
@@ -138,8 +144,9 @@ ul.plus li::marker{color:#22c55e}
 <div class="chips">
 <!-- чип на каждую ачивку, цвет рамки/текста по редкости:
      legendary #f59e0b/#fbbf24 · epic #a855f7/#c084fc · rare #3b82f6/#93c5fd · common #9aa0a6/#b6bbc2 -->
-<span class="ch" style="border-color:{{c1}};color:{{c2}}" title="{{rarity}} · {{desc_ru|desc_en из profile.json}}">{{название}}</span>
-<!-- title ОБЯЗАТЕЛЕН на каждом чипе: при наведении юзер видит редкость и условие ачивки -->
+<span class="ch" style="border-color:{{c1}};color:{{c2}}">{{название}}<span class="tip"><b>{{название}}</b><span class="rar" style="color:{{c2}}">{{rarity}}</span><br>{{desc — флейвор из profile.json (desc_ru/desc_en)}}<span class="cond">условие: {{cond_ru/cond_en}}</span></span></span>
+<!-- тултип ОБЯЗАТЕЛЕН на каждом чипе: стилизованный .tip (не браузерный title) с названием,
+     редкостью, флейвор-описанием и условием из profile.json -->
 </div>
 
 <h2 style="color:#86c98a">Сильное</h2>
