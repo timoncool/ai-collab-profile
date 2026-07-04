@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""AI Collab Profile — analyzer (SCALE v1).
+"""Prompt Warrior — analyzer (SCALE v1).
 
 Reads Claude Code JSONL session logs, computes fixed-scale communication metrics,
 derives fun statuses (rank, epithet, title, level, achievements) as flavor on top.

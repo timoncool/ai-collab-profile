@@ -1,4 +1,4 @@
-# AI Collab Profile
+# Prompt Warrior
 
 [![Claude Code Skill](https://img.shields.io/badge/Claude%20Code-Skill-8b5cf6)](https://code.claude.com/docs/en/skills)
 [![Scale](https://img.shields.io/badge/scale-v1-blue)](references/scale.md)
@@ -6,7 +6,7 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![RU/EN](https://img.shields.io/badge/lang-RU%20%2F%20EN-orange)](#русский)
 
-Turn your Claude Code history into a gamified analytical portrait. The skill analyzes
+**Prompt Warrior** — turn your Claude Code history into a gamified analytical portrait. The skill analyzes
 your local session logs and shows how you actually work with AI — real numbers on a
 **fixed scale** (comparable between people), a fun title, a level, achievements with
 rarity, and evidence-based prompt-engineering recommendations.
@@ -17,13 +17,13 @@ Not an RPG character sheet: the analytics are the product, the statuses are the 
 ## Install
 
 ```bash
-git clone https://github.com/timoncool/ai-collab-profile ~/.claude/skills/ai-collab-profile
+git clone https://github.com/timoncool/prompt-warrior ~/.claude/skills/prompt-warrior
 ```
 
 Windows (PowerShell):
 
 ```powershell
-git clone https://github.com/timoncool/ai-collab-profile "$env:USERPROFILE\.claude\skills\ai-collab-profile"
+git clone https://github.com/timoncool/prompt-warrior "$env:USERPROFILE\.claude\skills\prompt-warrior"
 ```
 
 That's it. Python 3.8+ (stdlib only), no dependencies, no API keys, no network calls.
@@ -33,10 +33,10 @@ That's it. Python 3.8+ (stdlib only), no dependencies, no API keys, no network c
 In any Claude Code session:
 
 ```
-/ai-collab-profile
+/prompt-warrior
 ```
 
-or just ask: *"построй мой AI-профиль"* / *"build my AI collaboration profile"* —
+or just ask: *"построй мой промпт-профиль"* / *"build my prompt warrior profile"* —
 optionally with a period: *"за неделю"*, *"for the last month"*, *"с 1 по 30 июня"*.
 Default is all time; the range is always your choice (`--days N`, `--date-from/--date-to`).
 
@@ -69,10 +69,10 @@ Everything runs locally; nothing ever leaves your machine.
 промпт-инженерингу с опорой на исследования. Это не RPG-лист персонажа: аналитика —
 продукт, статусы — приправа.
 
-**Установка:** команда `git clone` выше (папка `~/.claude/skills/ai-collab-profile`).
+**Установка:** команда `git clone` выше (папка `~/.claude/skills/prompt-warrior`).
 Нужен только Python 3.8+, без зависимостей и ключей.
 
-**Запуск:** `/ai-collab-profile` или просто «построй мой AI-профиль» в любой сессии.
+**Запуск:** `/prompt-warrior` или просто «построй мой AI-профиль» в любой сессии.
 
 **Честная игра:** формулы шкалы заморожены ([SCALE v1](references/scale.md)) — все
 измеряются одинаково, поэтому профили можно сравнивать. Да, даже если градус ярости — 82.

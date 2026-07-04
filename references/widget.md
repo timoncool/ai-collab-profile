@@ -156,7 +156,7 @@ ul.plus li::marker{color:#22c55e}
 <!-- до 4 пар по правилам выбора выше -->
 <div class="fix"><div class="w">{{слабость}}</div><div class="a">→ {{что делать}}</div><div class="ev">{{пруф — с кликабельной ссылкой: Anthropic docs → <a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices">…</a>, context rot → <a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">…</a>, arxiv → прямые ссылки; «практика» — без ссылки}}</div></div>
 
-<div class="foot muted"><span>SCALE v1 · ai-collab-profile</span><span>github.com/timoncool/ai-collab-profile</span></div>
+<div class="foot muted"><span>SCALE v1 · prompt-warrior</span><span>github.com/timoncool/prompt-warrior</span></div>
 </div></body></html>
 ```
 

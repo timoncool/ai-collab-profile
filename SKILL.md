@@ -1,9 +1,9 @@
 ---
-name: ai-collab-profile
-description: Use when the user wants to analyze their communication style with AI from Claude Code logs — asks for an "AI profile", "RPG profile", "wrapped", a psychological portrait of how they prompt, statistics of their sessions/messages, or personalized prompt-engineering recommendations based on their chat history. Works in any language (RU/EN lexicons built in).
+name: prompt-warrior
+description: Use when the user wants to analyze their communication style with AI from Claude Code logs — asks for a "prompt warrior" profile, an "AI profile", "wrapped", a psychological portrait of how they prompt, statistics of their sessions/messages, or personalized prompt-engineering recommendations based on their chat history. Works in any language (RU/EN lexicons built in).
 ---
 
-# AI Collab Profile
+# Prompt Warrior
 
 Builds a gamified analytical portrait of the user's AI collaboration style from their
 local Claude Code JSONL logs: real metrics on a FIXED scale (comparable between people)
