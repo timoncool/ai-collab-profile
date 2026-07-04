@@ -7,8 +7,8 @@ description: Use when the user wants to analyze their communication style with A
 
 Builds a gamified analytical portrait of the user's AI collaboration style from their
 local Claude Code JSONL logs: real metrics on a FIXED scale (comparable between people)
-plus fun statuses — a title, a level, achievements with rarity, an AI-generated avatar —
-and evidence-based prompt-engineering recommendations. It is NOT an RPG character sheet:
+plus fun statuses — a title, a level, achievements with rarity — and evidence-based
+prompt-engineering recommendations. It is NOT an RPG character sheet:
 no classes, no stat blocks; the analytics are the product, the statuses are the garnish.
 
 **The scale is a contract.** All formulas and thresholds live in `scripts/analyze.py`
@@ -31,29 +31,20 @@ unflattering, it stays. Report numbers only from `profile.json`, never invent or
      needed; stop.
    - `"low_confidence": true` (< 100 messages) → include a visible "small sample" caveat.
 
-3. **Generate the avatar** — a real AI portrait, free and anonymous (AI Horde open
-   volunteer network, documented anonymous key, no registration):
-   ```
-   python scripts/avatar.py --from-profile profile.json -o avatar.webp
-   ```
-   Takes 1-5 minutes (anonymous queue). Show the image to the user (Read tool).
-   If it fails, say so briefly and leave the avatar slot empty — never substitute
-   letter-SVGs, icons or placeholder art.
-
-4. **Render the analytical card** following `references/widget.md`. One card, one
+3. **Render the analytical card** following `references/widget.md`. One card, one
    product: the substance is the analytics (volume, imperatives, tone markers, activity
-   hours, strengths/weaknesses, recommendations); the RPG layer (title, achievements,
-   avatar) is flavor woven into it — never the other way around.
+   hours, strengths/weaknesses, recommendations); the gamified layer (title,
+   achievements, rage gauge) is flavor woven into it — never the other way around.
    - If an inline widget tool is available in this environment, render it inline.
    - Always also write a self-contained `ai-profile.html` to the working directory
-     (avatar referenced as `avatar.webp` next to it) and tell the user the path.
+     and tell the user the path.
 
-5. **Explain the profile** in the user's conversation language (the widget carries both
+4. **Explain the profile** in the user's conversation language (the widget carries both
    RU and EN labels from profile.json). Lead with what the numbers say — notable
    metrics, strengths and weaknesses; then the flavor: title (epithet + rank + level),
    achievements. Numbers verbatim from profile.json.
 
-6. **Give recommendations** using `references/recommendations.md`: pick the entries whose
+5. **Give recommendations** using `references/recommendations.md`: pick the entries whose
    trigger conditions match the profile, present 3-6 of them, each with its evidence note.
    Do not moralize about tone — research shows aggregate quality impact of tone is near
    zero; frame tone findings as fun facts plus practical notes (see recommendations.md).
@@ -63,8 +54,6 @@ unflattering, it stays. Report numbers only from `profile.json`, never invent or
 - Read-only with respect to user logs. The only files written: `profile.json`, `ai-profile.html`.
 - Respond in the user's language; RU/EN both supported end to end.
 - Fixed scale: same formulas for everyone, always cite `SCALE v1` version in the card footer.
-- Privacy: everything runs locally; no log content leaves the machine. The optional AI
-  avatar sends ONLY the generated `avatar_prompt` string (class/epithet words, no log text)
-  to the image service — say this to the user when they use it.
+- Privacy: everything runs locally; nothing leaves the machine.
 - If the user asks to compare with friends: they run the same skill; identical scale
   version = comparable results. Different scale versions are not comparable.

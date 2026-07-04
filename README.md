@@ -9,7 +9,7 @@
 Turn your Claude Code history into a gamified analytical portrait. The skill analyzes
 your local session logs and shows how you actually work with AI — real numbers on a
 **fixed scale** (comparable between people), a fun title, a level, achievements with
-rarity, an AI-generated avatar, and evidence-based prompt-engineering recommendations.
+rarity, and evidence-based prompt-engineering recommendations.
 Not an RPG character sheet: the analytics are the product, the statuses are the garnish.
 
 > **Furious Terminal Commander, level 89, The Iron Fist** — rage 82/100 · «проверь» is imperative #2 · negativity:praise 24:1
@@ -26,7 +26,7 @@ Windows (PowerShell):
 git clone https://github.com/timoncool/ai-collab-profile "$env:USERPROFILE\.claude\skills\ai-collab-profile"
 ```
 
-That's it. Python 3.8+ (stdlib only), no dependencies, no API keys — avatar generation included (AI Horde anonymous access).
+That's it. Python 3.8+ (stdlib only), no dependencies, no API keys, no network calls.
 
 ## Use
 
@@ -43,8 +43,6 @@ You get one card — a serious analytical portrait with RPG flavor woven in:
   hour, strengths and weaknesses derived strictly from your numbers;
 - **The statuses** (the garnish): fun title as the headline (epithet + rank + level),
   the rage gauge, up to 24 achievements (common → legendary);
-- **Avatar** — a real AI-generated character portrait via [AI Horde](https://aihorde.net)
-  (open volunteer GPU network: free, anonymous, no registration, no tokens);
 - **3-6 personalized recommendations**, each backed by published research or Anthropic docs
   (see [references/recommendations.md](references/recommendations.md));
 - Inline widget + self-contained `ai-profile.html` you can open, screenshot and share.
@@ -57,8 +55,7 @@ profiles comparable. Yes, even if your rage gauge hits 82/100.
 
 ## Privacy
 
-Everything runs locally; log content never leaves your machine. Avatar generation
-sends only a short generated prompt (title words, no log text) to AI Horde.
+Everything runs locally; nothing ever leaves your machine.
 
 ---
 
@@ -66,7 +63,7 @@ sends only a short generated prompt (title words, no log text) to AI Horde.
 
 Скилл для Claude Code: геймифицированный аналитический портрет вашего стиля работы с ИИ.
 Локальный анализ логов → реальные цифры по **фиксированной шкале** (сравнимой между
-людьми), прикольный титул, уровень, ачивки с редкостью, AI-аватар и рекомендации по
+людьми), прикольный титул, уровень, ачивки с редкостью и рекомендации по
 промпт-инженерингу с опорой на исследования. Это не RPG-лист персонажа: аналитика —
 продукт, статусы — приправа.
 
@@ -78,8 +75,7 @@ sends only a short generated prompt (title words, no log text) to AI Horde.
 **Честная игра:** формулы шкалы заморожены ([SCALE v1](references/scale.md)) — все
 измеряются одинаково, поэтому профили можно сравнивать. Да, даже если градус ярости — 82.
 
-**Приватность:** всё локально; наружу может уйти только короткий промпт аватара
-(слова титула, не логи) — в AI Horde при генерации.
+**Приватность:** всё локально; наружу не уходит ничего.
 
 ## Structure
 
@@ -87,7 +83,7 @@ sends only a short generated prompt (title words, no log text) to AI Horde.
 SKILL.md                       # skill entry: triggers + workflow
 scripts/analyze.py             # analyzer (stdlib-only, deterministic, read-only)
 references/scale.md            # SCALE v1 — frozen formulas
-references/rpg.md              # classes, epithets, achievements
+references/rpg.md              # fun statuses: ranks, epithets, achievements
 references/recommendations.md  # metric-triggered advice with sources
-references/widget.md           # card render spec + avatar recipes
+references/widget.md           # card render spec
 ```

@@ -282,13 +282,13 @@ def compute_indexes(m):
 
 
 RANKS = {
-    # dominant index -> fun rank (RU, EN, avatar visual descriptor)
-    "command": ("Командир Терминала", "Terminal Commander", "fierce battle commander"),
-    "tempo": ("Мастер Молниеносных Правок", "Master of Lightning Edits", "lightning-fast duelist"),
-    "endurance": ("Марафонец Сессий", "Session Marathoner", "unstoppable marathon warrior"),
-    "context": ("Архитектор Спек", "Spec Architect", "wise arcane architect"),
-    "verification": ("Верховный Ревизор", "High Auditor", "all-seeing inquisitive auditor"),
-    "diplomacy": ("Дипломат Машин", "Machine Diplomat", "charismatic envoy"),
+    # dominant index -> fun rank (RU, EN)
+    "command": ("Командир Терминала", "Terminal Commander"),
+    "tempo": ("Мастер Молниеносных Правок", "Master of Lightning Edits"),
+    "endurance": ("Марафонец Сессий", "Session Marathoner"),
+    "context": ("Архитектор Спек", "Spec Architect"),
+    "verification": ("Верховный Ревизор", "High Auditor"),
+    "diplomacy": ("Дипломат Машин", "Machine Diplomat"),
 }
 
 INDEX_ORDER = ["command", "tempo", "endurance", "context", "verification", "diplomacy"]
@@ -391,7 +391,7 @@ def build_profile(messages):
         return {"error": "not_enough_data", "messages": m["messages"],
                 "note": "Need at least 30 user messages for a profile."}
     indexes, rage = compute_indexes(m)
-    (rank_ru, rank_en, rank_visual), top_index = pick_rank(indexes)
+    (rank_ru, rank_en), top_index = pick_rank(indexes)
     ep_ru, ep_en = pick_epithet(m, rage)
     level = max(1, min(99, int(math.sqrt(m["total_words"]) / 5)))
     achievements = compute_achievements(m, rage)
@@ -401,13 +401,6 @@ def build_profile(messages):
     if suffix and RARITY_ORDER[suffix["rarity"]] >= 2:
         title_ru += ", " + suffix["suffix_ru"]
         title_en += ", " + suffix["suffix_en"]
-    avatar_prompt = (
-        "epic fantasy character portrait, %s %s at a glowing computer battlestation, "
-        "floating terminal screens with magic code runes, %s, "
-        "highly detailed digital painting, dramatic cinematic lighting"
-        % (ep_en.lower(), rank_visual,
-           "night scene" if m["night_share_pct"] >= 30 else "workshop scene")
-    )
     return {
         "scale_version": SCALE_VERSION,
         "low_confidence": m["messages"] < 100,
@@ -419,7 +412,6 @@ def build_profile(messages):
         "level": level,
         "title": {"ru": title_ru, "en": title_en},
         "achievements": achievements,
-        "avatar_prompt": avatar_prompt,
     }
 
 
