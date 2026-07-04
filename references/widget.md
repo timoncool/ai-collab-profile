@@ -236,6 +236,7 @@ a{color:var(--brass);text-decoration:none;border-bottom:1px dotted var(--brass-d
 .ac .cd{visibility:hidden;opacity:0;transition:opacity .15s;position:absolute;bottom:calc(100% + 7px);left:50%;transform:translateX(-50%);width:250px;z-index:9;background:linear-gradient(175deg,#2E2620,#241D18);border:1px solid #55483A;border-radius:8px;padding:8px 12px;font-size:12px;font-style:italic;color:#C0AF9A;box-shadow:0 1px 0 rgba(255,255,255,.06) inset,0 10px 26px rgba(0,0,0,.6);text-align:center}
 .ac .cd:after{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:#55483A}
 .ac:hover .cd{visibility:visible;opacity:1}
+.ac:hover{z-index:30}
 .ac{display:flex;gap:11px;align-items:center;background:linear-gradient(180deg,var(--oak2),#221B16);border:1px solid;border-radius:9px;padding:8px 11px;box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 2px 3px rgba(0,0,0,.4)}
 .aico{flex:none;width:54px;height:54px;display:flex;align-items:center;justify-content:center;border:1px solid;border-radius:11px;background:radial-gradient(circle at 50% 35%,#2E2620,#191411 78%);box-shadow:inset 0 2px 5px rgba(0,0,0,.5),inset 0 -1px 0 rgba(255,255,255,.05)}
 .atx{min-width:0}
