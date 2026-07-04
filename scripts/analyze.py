@@ -20,7 +20,7 @@ import re
 import sys
 from collections import Counter
 
-SCALE_VERSION = "v1.1"  # формулы метрик v1 не менялись; расширен набор ачивок и эпитетов
+SCALE_VERSION = "v1.2"  # формулы метрик v1 не менялись; v1.1 расширил ачивки/эпитеты; v1.2 добавил шкалы-гейджи
 
 # ---------------------------------------------------------------- extraction
 
@@ -325,6 +325,55 @@ def compute_indexes(m):
     rage = round(clamp(m["profanity_per_1000_words"] * 1.5
                        + m["caps_pct"] + m["multipunct_pct"]))
     return indexes, rage
+
+
+def compute_gauges(m, rage):
+    """Fun 0-100 gauges. Derived from v1 metrics only; formulas frozen per version."""
+    warmth = clamp(m["politeness_pct"] * 12 + m["praise_pct"] * 8)
+    rigor = clamp(m["verify_pct"] * 6 + m["self_correction_pct"] * 10 + m["categorical_pct"] * 2)
+    nocturnality = clamp(m["night_share_pct"] * 2.2)
+
+    def bucket(value, hi, mid, lo, hi_t=60, mid_t=25):
+        return hi if value >= hi_t else (mid if value >= mid_t else lo)
+
+    return [
+        {"id": "rage", "ru": "Ярость", "en": "Rage", "value": rage,
+         "caption_ru": bucket(rage,
+            "на качество ответов почти не влияет (агрегатный эффект тона ≈ 0 — arxiv 2508.00614, 2512.12812) — но жрёт токены без диагностики",
+            "умеренный градус; тон почти не влияет на качество ответов (arxiv 2508.00614)",
+            "дзен-режим: усилители (капс, мат, !!!) почти не используются"),
+         "caption_en": bucket(rage,
+            "barely affects response quality (aggregate tone effect ≈ 0 — arxiv 2508.00614, 2512.12812) — but burns tokens without diagnostics",
+            "moderate heat; tone barely affects response quality (arxiv 2508.00614)",
+            "zen mode: intensifiers (CAPS, profanity, !!!) are barely used")},
+        {"id": "warmth", "ru": "Теплота", "en": "Warmth", "value": round(warmth),
+         "caption_ru": bucket(warmth,
+            "машины запомнят вас добром — похвала и вежливость как стиль",
+            "тепло дозировано: похвала выдаётся за дело",
+            "сухо и по делу — тоже стиль; похвала информативнее, чем кажется"),
+         "caption_en": bucket(warmth,
+            "the machines will remember you kindly — praise and courtesy as a style",
+            "measured warmth: praise is earned",
+            "dry and to the point — also a style; praise is more informative than it seems")},
+        {"id": "rigor", "ru": "Дотошность", "en": "Rigor", "value": round(rigor),
+         "caption_ru": bucket(rigor,
+            "каждый вывод под присмотром: проверки, стопы, жёсткие рамки",
+            "выборочный контроль: проверяете там, где дорого ошибиться",
+            "работа на доверии — просите артефакты чаще, это дёшево"),
+         "caption_en": bucket(rigor,
+            "every output is supervised: checks, stops, hard constraints",
+            "selective control: you verify where mistakes are expensive",
+            "trust-based workflow — ask for artifacts more often, it is cheap")},
+        {"id": "nocturnality", "ru": "Совиность", "en": "Nocturnality", "value": round(nocturnality),
+         "caption_ru": bucket(nocturnality,
+            "ночь — ваша смена: треть жизни с моделью проходит до рассвета",
+            "сова наполовину: ночные вылазки случаются",
+            "дневное существо: ночь для сна, редкий случай в этих логах"),
+         "caption_en": bucket(nocturnality,
+            "night is your shift: a third of your model time happens before dawn",
+            "half an owl: night raids do happen",
+            "daytime creature: nights are for sleep — rare in these logs")},
+    ]
 
 
 RANKS = {
@@ -634,6 +683,7 @@ def build_profile(messages):
         "level": level,
         "title": {"ru": title_ru, "en": title_en},
         "achievements": achievements,
+        "gauges": compute_gauges(m, rage),
     }
 
 
@@ -719,9 +769,23 @@ def append_snapshot(profile):
             fh.write(json.dumps(item, ensure_ascii=False) + "\n")
 
 
+# ---------------------------------------------------------------- sources
+# Адаптеры харнессов: каждый источник = функция(dir, project) -> messages.
+# Сейчас реализован Claude Code; форматы OpenCode/Codex/Copilot/Gemini — по мере
+# верификации их логов (см. README, Cross-harness).
+SOURCES = {
+    "claude-code": {
+        "collect": lambda d, proj: collect(d, proj),
+        "default_dir": os.path.join("~", ".claude", "projects"),
+    },
+}
+
+
 def main():
     ap = argparse.ArgumentParser(description="Prompt Warrior analyzer (SCALE %s)" % SCALE_VERSION)
-    ap.add_argument("--projects-dir", default=os.path.expanduser(os.path.join("~", ".claude", "projects")))
+    ap.add_argument("--source", choices=sorted(SOURCES), default="claude-code",
+                    help="which harness logs to read (default: claude-code)")
+    ap.add_argument("--projects-dir", default=None)
     ap.add_argument("--project", default=None, help="single project dir name (default: all)")
     ap.add_argument("--days", type=int, default=None,
                     help="last N days (7 = week, 30 = month); default: all time")
@@ -732,7 +796,9 @@ def main():
                     help="do not read/write the local progress history")
     args = ap.parse_args()
 
-    messages = collect(args.projects_dir, args.project)
+    src = SOURCES[args.source]
+    logs_dir = args.projects_dir or os.path.expanduser(src["default_dir"])
+    messages = src["collect"](logs_dir, args.project)
     messages = filter_by_range(messages, args.days, args.date_from, args.date_to)
     profile = build_profile(messages)
     if "metrics" in profile:
