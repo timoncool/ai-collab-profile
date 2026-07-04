@@ -40,7 +40,18 @@ unflattering, it stays. Report numbers only from `profile.json`, never invent or
      needed; stop.
    - `"low_confidence": true` (< 100 messages) → include a visible "small sample" caveat.
 
-3. **Build and SHOW the card** — output degrades gracefully, in this order:
+3. **Generate the local avatar (optional, offline)** — a deterministic monster from
+   the user's title via the `robohash` package (assembles bundled PNG layers locally;
+   zero network):
+   ```
+   python scripts/avatar.py --from-profile profile.json -o avatar.png
+   ```
+   If the package is missing, offer ONCE: «поставить `pip install robohash` для
+   локальных аватаров-монстров?» — install on yes, skip on no. Without the avatar the
+   card simply renders without an image — NEVER substitute placeholders, letters or
+   icons in its place. The monster evolves when the title changes — mention it.
+
+4. **Build and SHOW the card** — output degrades gracefully, in this order:
    a. Fill the template from `references/widget.md` with profile.json data EXACTLY as
       it prescribes (same CSS, same section order, rule-picked strengths and
       weakness→fix pairs, every number printed exactly once) and write
@@ -54,7 +65,7 @@ unflattering, it stays. Report numbers only from `profile.json`, never invent or
       the card as TEXT in the console following the text-fallback spec at the end of
       `references/widget.md` — same sections, same numbers, bars as unicode blocks.
 
-4. **Explain the profile** in the user's conversation language (the widget carries both
+5. **Explain the profile** in the user's conversation language (the widget carries both
    RU and EN labels from profile.json). If `profile.delta` is present and non-null,
    LEAD with what changed since the last visit — new achievements first (that is the
    share-worthy moment: «получена новая ачивка!»), then level/title changes, then the
@@ -63,7 +74,7 @@ unflattering, it stays. Report numbers only from `profile.json`, never invent or
    non-obvious insights — the most extreme or most characteristic numbers in the
    profile, phrased as discoveries, not judgements. Numbers verbatim from profile.json.
 
-5. **Give recommendations** using `references/recommendations.md`: pick the entries whose
+6. **Give recommendations** using `references/recommendations.md`: pick the entries whose
    trigger conditions match the profile, present 3-6 of them, each with its evidence note.
    Do not moralize about tone — research shows aggregate quality impact of tone is near
    zero; frame tone findings as fun facts plus practical notes (see recommendations.md).
