@@ -68,7 +68,7 @@
 - Никогда не предполагать высокий градус ярости/мата — все тексты нейтральны к
   значению метрик, кроме явно выбранных правилами.
 
-## HTML-шаблон «Гримуар» (утверждён 2026-07-04; заполнить {{...}}, списки — по образцу)
+## HTML-шаблон «Гримуар v1» (утверждён юзером 2026-07-04: БЕЗ арки, БЕЗ римских цифр — обычные числа; заполнить {{...}})
 
 Шрифты Google (Cormorant Garamond / Cinzel / Crimson Pro) подключать <link>-ом как в
 образце; офлайн деградирует на Georgia — допустимо.
@@ -87,17 +87,15 @@ background:radial-gradient(120% 90% at 50% 8%,transparent 50%,rgba(0,0,0,.34) 10
 .card>*{position:relative;z-index:3}
 .card:after{content:"";position:absolute;inset:10px;border:1px solid rgba(201,169,98,.22);border-radius:9px;pointer-events:none}
 h1{font:600 30px/1.22 "Cormorant Garamond",Georgia,serif;margin:8px 0 3px;text-shadow:0 1px 0 rgba(0,0,0,.6)}
-h1 .cap{font-size:46px;line-height:.8;color:var(--brass);font-weight:700;text-shadow:0 2px 3px rgba(0,0,0,.55),0 0 14px rgba(201,169,98,.3)}
 h2{font:600 12.5px "Cinzel",Georgia,serif;letter-spacing:.2em;text-transform:uppercase;color:var(--brass);margin:26px 0 12px;display:flex;align-items:center;gap:11px}
-h2 .rn{font-size:11px;color:var(--brass-dim);min-width:22px;text-align:right}
+h2:before{content:"";width:24px;height:1px;background:linear-gradient(90deg,transparent,var(--brass-dim))}
 h2:after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--brass-dim),transparent 85%)}
 .muted{color:var(--mut);font-size:13px}
 a{color:var(--brass);text-decoration:none;border-bottom:1px dotted var(--brass-dim)}a:hover{color:#E0C685}
-.arch{position:relative;display:flex;gap:22px;align-items:center;padding:26px 120px 20px 30px;margin:-4px -8px 4px;border:1px solid rgba(201,169,98,.3);border-bottom:none;border-radius:100px 100px 0 0;background:radial-gradient(90% 130% at 50% -20%,rgba(201,169,98,.10),transparent 60%)}
-.arch:after{content:"";position:absolute;left:10%;right:10%;bottom:0;height:1px;background:linear-gradient(90deg,transparent,var(--brass-dim),transparent)}
-.arch img{width:122px;height:122px;border-radius:50%;border:2px solid rgba(201,169,98,.45);background:#171310;box-shadow:0 3px 10px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.1);flex:none}
+.head{display:flex;gap:20px;align-items:center;padding-bottom:16px;border-bottom:1px solid rgba(201,169,98,.25);position:relative}
+.head img{width:112px;height:112px;border-radius:12px;border:2px solid rgba(201,169,98,.4);background:#171310;box-shadow:0 3px 10px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.1);flex:none}
 .ident{font:600 13px "Cinzel",Georgia,serif;letter-spacing:.08em;color:var(--brass)}
-.lvl{position:absolute;right:24px;top:50%;transform:translateY(-50%);text-align:center;padding:11px 13px;border:1px solid rgba(201,169,98,.4);border-radius:10px;background:linear-gradient(180deg,#2B231D,#1E1813);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 3px 8px rgba(0,0,0,.45)}
+.lvl{flex:none;text-align:center;padding:11px 13px;border:1px solid rgba(201,169,98,.4);border-radius:10px;background:linear-gradient(180deg,#2B231D,#1E1813);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 3px 8px rgba(0,0,0,.45)}
 .lvl b{display:block;font:600 22px "Cinzel",Georgia,serif;color:var(--brass);letter-spacing:.04em}
 .lvl span{display:block;font-size:10px;color:var(--mut);letter-spacing:.14em;text-transform:uppercase;margin-top:2px}
 .dstrip{margin-top:12px;padding:6px 13px;border:1px solid #3A312A;border-radius:8px;font-size:13px;color:var(--mut);background:rgba(37,30,25,.7)}
@@ -141,46 +139,46 @@ ul.plus li::marker{color:#A9BC6E}
 .seal{position:absolute;right:2px;top:-24px;width:42px;height:42px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#A63A48,var(--crimson) 55%,#5E1822);box-shadow:inset 0 2px 4px rgba(255,255,255,.18),inset 0 -3px 6px rgba(0,0,0,.45),0 3px 8px rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;font:600 14px "Cinzel",Georgia,serif;color:#E8CFB4;text-shadow:0 -1px 1px rgba(0,0,0,.5)}
 </style></head><body><div class="card">
 
-<div class="arch">
+<div class="head">
 <!-- avatar.png если сгенерирован; нет файла — просто без <img>, заглушки запрещены -->
 <img src="avatar.png" alt="монстр из титула">
 <div>
 <div class="muted" style="font-family:'Cinzel',Georgia,serif;letter-spacing:.3em;font-size:10.5px">PROMPT WARRIOR</div>
-<h1><span class="cap">{{первая буква}}</span>{{титул без уровня, уровень уходит в табличку справа}}</h1>
+<h1>{{титул без уровня — уровень в табличке справа}}</h1>
 <div class="ident">{{identity.class.ru}} · {{identity.race.ru}} ({{share}}% реплик)</div>
 <div class="muted" style="margin-top:6px">{{N реплик · N слов · N сессий · даты · N реплик в активный день}}</div>
 </div>
-<div class="lvl"><b>{{уровень римскими}}</b><span>уровень {{N}}</span></div>
+<div class="lvl"><b>{{N}}</b><span>уровень</span></div>
 </div>
 <div class="dstrip">{{полоса прогресса из profile.delta — только если есть изменения}}</div>
 
-<h2><span class="rn">I</span>Объём реплик</h2>
+<h2>Объём реплик</h2>
 <div class="grid"><!-- 4 тайла: слов в среднем / медиана / короткие / спеки --></div>
 
 <div class="cols">
-<div><h2><span class="rn">II</span>Топ императивов</h2><!-- .row-бары, латунь --></div>
-<div><h2><span class="rn">III</span>Маркеры тона</h2><!-- .row-бары: негатив ember, нейтраль латунь, позитив олива --></div>
+<div><h2>Топ императивов</h2><!-- .row-бары, латунь --></div>
+<div><h2>Маркеры тона</h2><!-- .row-бары: негатив ember, нейтраль латунь, позитив олива --></div>
 </div>
 
 <div class="duo">
-<div><h2><span class="rn">IV</span>Часы активности</h2><div class="hours"><!-- 24 <i>, ночные .n --></div></div>
-<div><h2><span class="rn">V</span>Шкалы</h2><!-- 4 гейджа .growl+.gauge+.needle, подписи-бакеты из profile.gauges, ссылки кликабельны --></div>
+<div><h2>Часы активности</h2><div class="hours"><!-- 24 <i>, ночные .n --></div></div>
+<div><h2>Шкалы</h2><!-- 4 гейджа .growl+.gauge+.needle, подписи-бакеты из profile.gauges, ссылки кликабельны --></div>
 </div>
 
-<h2><span class="rn">VI</span>Экономика и арсенал</h2>
+<h2>Экономика и арсенал</h2>
 <div class="grid6"><!-- 6 тайлов: токены / кэш-эфф / вызовы / инструменты / проекты / PR; секцию скрыть если economy null --></div>
 <div class="muted"><!-- строка: топ-3 инструмента · доли категорий · MCP% --></div>
 
-<h2><span class="rn">VII</span>Словарь воина</h2>
+<h2>Словарь воина</h2>
 <div><!-- .wch чипы слово ×count; скрыть если пусто --></div>
 
-<h2><span class="rn">VIII</span>Достижения, {{N}}</h2>
+<h2>Достижения, {{N}}</h2>
 <div class="chips"><!-- .ch чипы: инлайн-иконка (assets/achievement-icons, только path, fill=currentColor, фон-прямоугольники выбросить) + название + .tip тултип --></div>
 
-<h2 style="color:#A9BC6E"><span class="rn">IX</span>Сильное</h2>
+<h2 style="color:#A9BC6E">Сильное</h2>
 <ul class="plus"><!-- до 3 пунктов по правилам выбора --></ul>
 
-<h2 style="color:#D8A091"><span class="rn">X</span>Слабое и что делать</h2>
+<h2 style="color:#D8A091">Слабое и что делать</h2>
 <!-- до 4 .fix-плашек: слабость / → что делать / пруф-ссылка -->
 
 <div class="foot muted"><span style="font-family:'Cinzel',Georgia,serif;letter-spacing:.15em;font-size:11px">SCALE {{version}}</span><span class="seal">PW</span><span><a href="https://github.com/timoncool/prompt-warrior">github.com/timoncool/prompt-warrior</a></span></div>
