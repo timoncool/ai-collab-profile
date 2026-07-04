@@ -24,7 +24,7 @@ import urllib.request
 API = "https://stablehorde.net/api/v2"
 CLIENT = "ai-collab-profile:1.0:github.com/timoncool/ai-collab-profile"
 WIDTH, HEIGHT, STEPS = 576, 832, 28  # fits the anonymous <=751x751 pixel budget
-POLL_S, MAX_WAIT_S = 10, 600
+POLL_S, MAX_WAIT_S = 10, 1200
 
 
 def call(path, payload=None, timeout=30):
