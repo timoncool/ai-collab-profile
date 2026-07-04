@@ -5,6 +5,68 @@
 выдумывая: структура, CSS и порядок секций — как ниже, слово в слово. Меняются только
 данные и выбранные правилами пункты. Язык — язык общения юзера (в profile.json — ru/en).
 
+## Язык: RU и EN — симметричные первоклассные версии
+
+Язык карточки определяется АВТОМАТИЧЕСКИ: это язык общения юзера в текущей сессии
+(попросил на другом языке — его выбор важнее). profile.json двуязычен целиком
+(title/gauges/achievements/identity/imperatives несут поля ru и en) — данные НЕ переводить,
+брать готовое поле нужного языка. Подписи карточки берутся из словаря ниже: колонка RU
+или EN, слово в слово. «Хронику воина» модель пишет на языке карточки. «Словарь воина» —
+всегда реальные слова юзера из логов, их язык не меняется. Обе версии обязаны быть
+симметричны: те же секции, те же числа, тот же порядок.
+
+### Словарь подписей (RU | EN)
+
+| RU | EN |
+|----|----|
+| Хроника воина | Warrior's Chronicle |
+| Объём реплик | Message volume |
+| слов в среднем | words on average |
+| слов, медиана | words, median |
+| короткие (до 12 слов) | short (up to 12 words) |
+| спеки (от 200 слов) | specs (200+ words) |
+| Топ императивов | Top imperatives |
+| Маркеры тона | Tone markers |
+| мат / вопросы / капс, крик / оскорбления / !!!! и ???? / проверь-запросы / самокоррекция / вежливость | profanity / questions / CAPS, shouting / insults / !!!! and ???? / verify-requests / self-correction / politeness |
+| Часы активности | Hours of activity |
+| Дни недели (пн..вс) | Days of week (Mo..Su) |
+| Шкалы | Gauges |
+| Экономика и арсенал | Economy & arsenal |
+| токенов сгенерировано / кэш-эффективность / вызовов инструментов / разных инструментов / проектов / PR и MR из сессий | tokens generated / cache efficiency / tool calls / distinct tools / projects / PRs and MRs shipped |
+| Топ инструментов | Top tools |
+| Стиль работы — вызовы по ролям | Working style — calls by role |
+| Оператор — консоль: Bash, PowerShell | Operator — console: Bash, PowerShell |
+| Хирург — правки кода: Edit, Write | Surgeon — code edits: Edit, Write |
+| Археолог — чтение и поиск: Read, Grep | Archaeologist — reading & search: Read, Grep |
+| Кукловод — MCP: внешние серверы | Puppeteer — MCP: external servers |
+| Прочее — всё остальное | Other — everything else |
+| MCP-парк — внешние серверы | MCP fleet — external servers |
+| Файлы в работе — топ расширений | Files touched — top extensions |
+| Боевые повадки | Battle habits |
+| прерываний на 100 реплик | interruptions per 100 messages |
+| точка кипения: реплика первой вспышки (кипит N% сессий) | boiling point: first-flare message (N% of sessions boil) |
+| оборотень: ночной мат к дневному | werewolf: night profanity vs day |
+| скриншотов на 100 реплик | screenshots per 100 messages |
+| дабл-текстов на 100 реплик — мысли очередями | double-texts per 100 — thoughts in salvos |
+| вызовов субагентов — армии по одному слову | subagent spawns — armies at a word |
+| реплик открываются с «нет / не так» | messages open with "no / wrong" |
+| реплик мешают RU и EN в одной фразе | messages mix RU and EN in one phrase |
+| вопросов — «что», N% «как», N% «почему» | of questions ask "what", N% "how", N% "why" |
+| вызовов инструментов — с ошибкой | of tool calls error out |
+| ответов модели — с thinking-блоками | of replies carry thinking blocks |
+| достижений открыто | achievements unlocked |
+| Конюшня — ответы по моделям | The stable — replies by model |
+| Сетап · вход в Claude Code · план-режим · версий Claude Code за период · самая дорогая сессия | Setup · Claude Code entrypoint · plan mode · Claude Code versions in period · most expensive session |
+| Словарь воина | Warrior's vocabulary |
+| Достижения · условие: | Achievements · unlock: |
+| Показать все достижения — ещё N (rare и common) | Show all achievements — N more (rare & common) |
+| Сильное | Strong |
+| Слабое и что делать | Weak — and what to do |
+| уровень · реплик · слова · сессий · реплик в активный день | level · messages · words · sessions · messages per active day |
+| Понравилось? Поставьте звезду ★ | Enjoyed it? Star the repo ★ |
+
+Имена моделей: Опус/Opus, Фейбл/Fable, Сонет/Sonnet, Хайку/Haiku + номер версии.
+
 ## Жёсткие правила (нарушение = брак)
 
 1. **Каждое число появляется на карточке ровно один раз.** Поздние секции ссылаются
@@ -19,12 +81,13 @@
    Дотошность, Совиность, Нетерпеливость, Кэш-скряга; последняя есть только при доступной
    экономике), с готовыми подписями-бакетами; не выдумывать свои формулы и тексты.
 2а. Все упоминания источников (arxiv, Anthropic docs) — КЛИКАБЕЛЬНЫЕ <a href>, не голый текст.
-2б. Ачивки — РАЗВЁРНУТЫМИ карточками (.ac), без тултипов и hover: в каждой сразу видны
-   иконка + название (цвет редкости) + редкость + флейвор (desc_*) + условие (cond_*) из
-   profile.json. Сетка 3 колонки (.chips). Сразу показываются ТОЛЬКО legendary и epic;
-   rare и common — внутри <details class="more"> с summary
-   «Показать все достижения — ещё N (rare и common)». Если legendary/epic нет вовсе —
-   показать первые 6 по редкости, остальное в аккордеон.
+2б. Ачивки — стим-стайл карточками (.ac) в 2 КОЛОНКИ: крупный медальон-иконка слева,
+   справа название (цвет редкости) + редкость + флейвор (desc_*). Условие получения
+   (cond_*) НЕ печатается на карточке — оно в ховер-подсказке .cd (появляется над
+   карточкой при наведении). Сразу показываются ТОЛЬКО legendary и epic; rare и common —
+   внутри <details class="more"> с summary «Показать все достижения — ещё N (rare и
+   common)». Если legendary/epic нет вовсе — показать первые 6 по редкости, остальное
+   в аккордеон.
 3. Никаких картинок: ни аватаров, ни иконок, ни SVG, ни base64, ни внешних ресурсов.
 4. Отдельной секции «Рекомендации» НЕТ — советы живут парами в «Слабое → что делать».
 4а. Идентичность: строка под титулом «{класс} · {раса} ({доля}% реплик)» из profile.identity;
@@ -134,7 +197,11 @@ a{color:var(--brass);text-decoration:none;border-bottom:1px dotted var(--brass-d
 .gauge{height:12px;border-radius:6px;border:1px solid #322A23;background:linear-gradient(90deg,#6E7F46,#A08430 45%,#9C4A26 75%,#7E2B20);box-shadow:inset 0 2px 4px rgba(0,0,0,.45);position:relative}
 .needle{position:absolute;top:-4px;width:4px;height:20px;background:linear-gradient(180deg,#F0DCAC,#C9A962 60%,#8F7440);border-radius:2px;box-shadow:0 0 4px rgba(0,0,0,.6),0 0 8px rgba(201,169,98,.4)}
 .gnote{font-size:12px;margin:0 30px 9px 120px;color:#A8977F}
-.chips{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;align-items:start}
+.chips{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;align-items:start}
+.ac{position:relative}
+.ac .cd{visibility:hidden;opacity:0;transition:opacity .15s;position:absolute;bottom:calc(100% + 7px);left:50%;transform:translateX(-50%);width:250px;z-index:9;background:linear-gradient(175deg,#2E2620,#241D18);border:1px solid #55483A;border-radius:8px;padding:8px 12px;font-size:12px;font-style:italic;color:#C0AF9A;box-shadow:0 1px 0 rgba(255,255,255,.06) inset,0 10px 26px rgba(0,0,0,.6);text-align:center}
+.ac .cd:after{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:#55483A}
+.ac:hover .cd{visibility:visible;opacity:1}
 .ac{display:flex;gap:11px;align-items:center;background:linear-gradient(180deg,var(--oak2),#221B16);border:1px solid;border-radius:9px;padding:8px 11px;box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 2px 3px rgba(0,0,0,.4)}
 .aico{flex:none;width:54px;height:54px;display:flex;align-items:center;justify-content:center;border:1px solid;border-radius:11px;background:radial-gradient(circle at 50% 35%,#2E2620,#191411 78%);box-shadow:inset 0 2px 5px rgba(0,0,0,.5),inset 0 -1px 0 rgba(255,255,255,.05)}
 .atx{min-width:0}
@@ -230,7 +297,7 @@ ul.plus li::marker{color:#A9BC6E}
 <div><!-- .wch чипы слово ×count; скрыть если пусто --></div>
 
 <h2>Достижения, {{N}}</h2>
-<div class="chips"><!-- .ac карточки ТОЛЬКО legendary+epic (сетка 3 кол.): инлайн-иконка (assets/achievement-icons, только path, fill=currentColor, фоны выбросить) + название цветом редкости + .rar + .fl флейвор + .cd условие. БЕЗ тултипов --></div>
+<div class="chips"><!-- .ac карточки ТОЛЬКО legendary+epic (сетка 2 кол.): медальон .aico слева (иконка из assets/achievement-icons, только path, fill=currentColor, фоны выбросить) + .atx: название цветом редкости + .rar + .fl флейвор. Условие — в .cd (ховер-тултип НАД карточкой) --></div>
 <details class="more"><summary>Показать все достижения — ещё {{N}} (rare и common)</summary>
 <div class="chips" style="margin-top:10px"><!-- .ac карточки rare+common --></div></details>
 

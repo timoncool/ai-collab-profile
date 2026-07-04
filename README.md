@@ -11,7 +11,7 @@
 
 **[English](README.md)** · **[Русский](README_RU.md)**
 
-![Prompt Warrior card](docs/screenshots/hero.png)
+![Prompt Warrior card](docs/screenshots/hero-en.png)
 
 </div>
 
