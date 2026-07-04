@@ -53,6 +53,8 @@ unflattering, it stays. Report numbers only from `profile.json`, never invent or
    trigger conditions match the profile, present 3-6 of them, each with its evidence note.
    Do not moralize about tone — research shows aggregate quality impact of tone is near
    zero; frame tone findings as fun facts plus practical notes (see recommendations.md).
+   If the user asks about tone tricks, rudeness, tips/threats or "prompting lifehacks",
+   use the Anti-myths section of recommendations.md — debunked claims with vote verdicts.
 
 ## Rules
 

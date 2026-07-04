@@ -35,7 +35,9 @@
 
 | Source | Finding | Vote | Used in |
 |---|---|---|---|
-| [code.claude.com/docs/en/best-practices](https://code.claude.com/docs/en/best-practices) | Скилл = директория со SKILL.md в .claude/skills/, YAML frontmatter name/description; disable-model-invocation для ручных; marketplace.json для дистрибуции | 3-0 | структура репо и установка |
+| [code.claude.com/docs/en/best-practices](https://code.claude.com/docs/en/best-practices) | Скилл = директория со SKILL.md в .claude/skills/, YAML frontmatter name/description; marketplace.json для дистрибуции | 3-0 | структура репо и установка |
+| там же | disable-model-invocation: true — для ручных слэш-скиллов | 3-0 | не применяется: prompt-warrior авто-триггерится намеренно |
+| [arxiv.org/abs/2510.04950](https://arxiv.org/abs/2510.04950) (методика) | 50 вопросов × 5 тональностей = 250 промптов, paired t-tests, ChatGPT-4o | 3-0 | контекст для анти-мифа о грубости (вывод работы — отклонён 0-2) |
 
 ## Отклонено адверсариальной проверкой (НЕ используется в скилле)
 
