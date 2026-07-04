@@ -24,12 +24,19 @@ Numbers verbatim from profile.json. Footer: `SCALE v1 · ai-collab-profile`.
 6. **Rage gauge** — a thin green→red bar («градус ярости») with a one-line fun caption.
    No stat blocks, no D&D strips anywhere on the card.
 7. **Achievements** — one row of small chips with rarity colors (common #9aa0a6,
-   rare #3b82f6, epic #a855f7, legendary #f59e0b). Earned only.
-8. **Strengths / weaknesses** — 2-3 bullets each, derived strictly from the numbers
-   (e.g. "проверь — второй по частоте императив" / "негатив:похвала 24:1").
-9. **Recommendations** — 3-6 one-liners from references/recommendations.md (details
-   go in the chat message).
+   rare #3b82f6, epic #a855f7, legendary #f59e0b). Earned only, names only — no
+   metric subtitles (the numbers already live in sections above).
+8. **Strengths** — 2-3 bullets derived strictly from the numbers, WITHOUT restating
+   figures already shown (refer in words: «второй императив корпуса, бары выше»).
+9. **Weaknesses → fixes** — 3-4 pairs, each: the weakness (one line), the fix
+   (one line, from references/recommendations.md), a small evidence note. This IS the
+   recommendations section — do not render a separate one.
 10. **Footer**: `SCALE v1 · ai-collab-profile · github.com/timoncool/ai-collab-profile`.
+
+**No self-repeats rule (hard)**: every number appears on the card exactly once. If a
+later section needs it, refer in words («медиана выше», «см. маркеры тона»). The tone
+research note appears once — under the rage gauge; weaknesses reference it, never
+restate it.
 
 ## Images — hard rules
 

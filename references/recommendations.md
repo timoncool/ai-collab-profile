@@ -4,33 +4,39 @@
 короткая пометка «почему» с источником. Не морализировать. / Pick 3-6 matching entries,
 deliver in the user's language, each with its evidence note. No moralizing.
 
-Evidence base: deep-research run 2026-07-03, 45 sources, 3-vote adversarial verification
-(full report: RESEARCH.md in the development repo). Key citations inline below.
+**No self-repeats on the card**: советы к слабостям подаются ПАРОЙ «слабость → что делать»
+в одном блоке; числа, уже показанные в секциях выше, не перепечатываются — ссылаться словами
+(«медиана выше», «см. маркеры»). Каждое число появляется на карточке ровно один раз.
+
+Evidence base: два дипресёрч-прогона 2026-07-03/04, 3-vote adversarial verification.
+Полный список источников с вердиктами: [sources.md](sources.md). Советы без прямого
+исследования помечены «практика» — это инженерные конвенции, не доказанные эффекты.
 
 ## Context & task framing
 
-**IF INT < 40 (телеграфные постановки)** → Первое сообщение задачи — самое дорогое место
+**IF context < 40 (телеграфные постановки)** → Первое сообщение задачи — самое дорогое место
 для контекста: что делаем, где лежит, как поймём что готово. +10 слов контекста в старте
 экономят циклы переделок дальше.
 *Evidence: Anthropic prompting best practices — модель работает заметно лучше с явными
 инструкциями и критериями успеха; Anthropic context engineering: контекст — конечный ресурс,
 курируй его сознательно (anthropic.com/engineering/effective-context-engineering-for-ai-agents).*
 
-**IF INT < 40 AND long_share_pct < 2** → Для крупных задач пишите спеку одним сообщением
+**IF context < 40 AND long_share_pct < 2** → Для крупных задач пишите спеку одним сообщением
 (что/где/критерии/антипримеры) вместо серии коротких правок: длинные материалы — в начало
 сообщения, сам вопрос/команду — в конец.
 *Evidence: Anthropic docs — «queries at the end can improve response quality by up to 30%»
 (platform.claude.com, prompting best practices).*
 
-**IF DEX > 70 AND INT < 40** → Ваш стиль — быстрые короткие итерации. Это нормальный режим
-руления, но каждая третья-четвёртая правка «не так, переделай» — сигнал, что дешевле было
-дать контекст заранее. Пакуйте связанные правки в одно сообщение списком.
-*Evidence: письменные навыки — значимый независимый предиктор успеха в LLM-кодинге
-(preregistered study, n=100, CHI 2026, arxiv.org/pdf/2603.14133).*
+**IF tempo > 70 AND context < 40** → Ваш стиль — быстрые короткие итерации. Это нормальный
+режим руления, но каждая третья-четвёртая правка «не так, переделай» — сигнал, что дешевле
+было дать контекст заранее. Пакуйте связанные правки в одно сообщение списком.
+*Evidence: практика (clear instructions / batching, Anthropic best practices); клейм
+«письменные навыки предсказывают успех вайбкодинга» проверку НЕ пережил и не используется
+(см. sources.md, отклонённые).*
 
 ## Verification & reflection
 
-**IF WIS < 35** → Просите модель проверять свою работу явно: «прогони тесты», «покажи вывод»,
+**IF verification < 35** → Просите модель проверять свою работу явно: «прогони тесты», «покажи вывод»,
 «проверь на реальных данных». Требование доказательств — самый дешёвый фильтр галлюцинаций.
 *Evidence: Anthropic best practices — verification loops / evidence before claims.*
 
@@ -43,14 +49,14 @@ Evidence base: deep-research run 2026-07-03, 45 sources, 3-vote adversarial veri
 
 ## Tone & emotional economy
 
-**IF RAGE >= 60 OR insult_pct >= 10** → Фан-факт из исследований: грубость и угрозы почти
+**IF rage >= 60 OR insult_pct >= 10** → Фан-факт из исследований: грубость и угрозы почти
 не влияют на качество ответов LLM (агрегатный эффект ≈ 0), так что ругайтесь на здоровье —
 но реплика «что за говно?????» не содержит диагностики, и модель всё равно переспросит.
 Экономнее сразу: что сломалось + что ожидалось.
 *Evidence: threatening/tipping has no significant benchmark effect (arxiv.org/abs/2508.00614);
 tone effects are narrow, small (~3%) and domain-specific (arxiv.org/html/2512.12812v1).*
 
-**IF CHA < 20** → Вежливость сама по себе качество тоже почти не меняет — но оптимальный тон
+**IF diplomacy < 20** → Вежливость сама по себе качество тоже почти не меняет — но оптимальный тон
 различается по языкам (для английского лучше вежливо-прямой стиль), а позитивное подкрепление
 («это верно, продолжай») помогает модели удерживать удачное направление.
 *Evidence: PLUM cross-lingual study — polite prompts improve quality up to 11% on average,
