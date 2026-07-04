@@ -68,7 +68,7 @@
 - Никогда не предполагать высокий градус ярости/мата — все тексты нейтральны к
   значению метрик, кроме явно выбранных правилами.
 
-## HTML-шаблон «Гримуар v1» (утверждён юзером 2026-07-04: БЕЗ арки, БЕЗ римских цифр — обычные числа; заполнить {{...}})
+## HTML-шаблон «Гримуар v1» (утверждён юзером: без арки, без римских цифр; заполнить {{...}})
 
 Шрифты Google (Cormorant Garamond / Cinzel / Crimson Pro) подключать <link>-ом как в
 образце; офлайн деградирует на Georgia — допустимо.
@@ -144,11 +144,11 @@ ul.plus li::marker{color:#A9BC6E}
 <img src="avatar.png" alt="монстр из титула">
 <div>
 <div class="muted" style="font-family:'Cinzel',Georgia,serif;letter-spacing:.3em;font-size:10.5px">PROMPT WARRIOR</div>
-<h1>{{титул без уровня — уровень в табличке справа}}</h1>
+<h1><span class="cap">{{первая буква}}</span>{{титул без уровня, уровень уходит в табличку справа}}</h1>
 <div class="ident">{{identity.class.ru}} · {{identity.race.ru}} ({{share}}% реплик)</div>
 <div class="muted" style="margin-top:6px">{{N реплик · N слов · N сессий · даты · N реплик в активный день}}</div>
 </div>
-<div class="lvl"><b>{{N}}</b><span>уровень</span></div>
+<div class="lvl"><b>{{уровень римскими}}</b><span>уровень {{N}}</span></div>
 </div>
 <div class="dstrip">{{полоса прогресса из profile.delta — только если есть изменения}}</div>
 
