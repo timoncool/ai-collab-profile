@@ -10,6 +10,9 @@
 1. **Каждое число появляется на карточке ровно один раз.** Поздние секции ссылаются
    на ранние словами («медиана — в Объёме», «см. маркеры»), не перепечатывают.
 2. Замечание про исследования тона — один раз, в подписи шкалы «Ярость». Больше нигде.
+2б-икон. Иконки секций: каждый <h2> открывается инлайн-SVG из assets/section-icons/
+   (16px, только <path> с fill="currentColor", фоновый прямоугольник выбрасывать; цвет
+   наследуется латунный). Маппинг секция→файл — в assets/section-icons/ATTRIBUTION.md.
 2в. Шкалы (gauges) — ВСЕ из массива profile.gauges (v1.5: до шести — Ярость, Теплота,
    Дотошность, Совиность, Нетерпеливость, Кэш-скряга; последняя есть только при доступной
    экономике), с готовыми подписями-бакетами; не выдумывать свои формулы и тексты.
@@ -79,7 +82,7 @@
 <!doctype html><html lang="{{lang}}"><head><meta charset="utf-8"><title>Prompt Warrior</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Cinzel:wght@500;600&family=Crimson+Pro:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#120e0b;--card:#1C1714;--oak:#251E19;--oak2:#2B231D;--line:#4A3F35;--text:#E8DFD4;--mut:#9C8B7A;--brass:#C9A962;--brass-dim:#8F7440;--crimson:#8B2635}
+:root{--bg:#120e0b;--card:#1C1714;--oak:#251E19;--oak2:#2B231D;--line:#4A3F35;--text:#E8DFD4;--mut:#B3A18C;--brass:#C9A962;--brass-dim:#8F7440;--crimson:#8B2635}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--text);font:15.5px/1.6 "Crimson Pro",Georgia,serif;display:flex;justify-content:center;padding:28px;margin:0}
 .card{width:820px;background:linear-gradient(170deg,#201A15 0%,var(--card) 22%,#191411 100%);border:1px solid #3A312A;border-radius:14px;padding:34px 40px;position:relative;
@@ -105,10 +108,10 @@ a{color:var(--brass);text-decoration:none;border-bottom:1px dotted var(--brass-d
 .grid6{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
 .tile{background:linear-gradient(180deg,var(--oak2),var(--oak));border-radius:9px;padding:11px 13px;border:1px solid #352C24;box-shadow:inset 0 1px 0 rgba(255,255,255,.05),inset 0 -2px 4px rgba(0,0,0,.35),0 1px 2px rgba(0,0,0,.4)}
 .tile b{font-size:21px;display:block;font-variant-numeric:tabular-nums;font-family:"Cormorant Garamond",Georgia,serif;font-weight:700}
-.tile span{font-size:11.5px;color:var(--mut)}
+.tile span{font-size:12.5px;line-height:1.45;color:#C0AF9A;display:block;margin-top:2px}
 .cols{display:grid;grid-template-columns:1fr 1fr;gap:8px 32px}
 .row{display:flex;align-items:center;gap:10px;margin-bottom:6px}
-.row .lb{width:130px;font-size:13px;color:var(--mut);text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row .lb{width:130px;font-size:13.5px;color:var(--mut);text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .bar{flex:1;height:12px;background:#171310;border-radius:6px;overflow:hidden;border:1px solid #322A23;box-shadow:inset 0 2px 4px rgba(0,0,0,.55)}
 .bar i{display:block;height:100%;border-radius:5px;box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
 .row .vl{width:50px;font-size:13px;font-variant-numeric:tabular-nums}
@@ -117,11 +120,11 @@ a{color:var(--brass);text-decoration:none;border-bottom:1px dotted var(--brass-d
 .hours i{flex:1;background:linear-gradient(180deg,#5C4F41,#463B30);border-radius:2px 2px 0 0;box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
 .hours i.n{background:linear-gradient(180deg,#D8B872,#A5843F);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 0 6px rgba(201,169,98,.25)}
 .growl{display:flex;align-items:center;gap:10px;margin-bottom:3px}
-.glb{width:88px;font-size:13px;color:var(--mut);text-align:right}
+.glb{width:110px;font-size:13.5px;color:var(--mut);text-align:right}
 .gvl{width:28px;font-size:13px;font-variant-numeric:tabular-nums}
 .gauge{height:12px;border-radius:6px;border:1px solid #322A23;background:linear-gradient(90deg,#6E7F46,#A08430 45%,#9C4A26 75%,#7E2B20);box-shadow:inset 0 2px 4px rgba(0,0,0,.45);position:relative}
 .needle{position:absolute;top:-4px;width:4px;height:20px;background:linear-gradient(180deg,#F0DCAC,#C9A962 60%,#8F7440);border-radius:2px;box-shadow:0 0 4px rgba(0,0,0,.6),0 0 8px rgba(201,169,98,.4)}
-.gnote{font-size:11px;margin:0 30px 9px 98px}
+.gnote{font-size:12px;margin:0 30px 9px 120px;color:#A8977F}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .ch{position:relative;cursor:default;border-radius:15px;padding:3px 13px;font-size:13px;background:linear-gradient(180deg,var(--oak2),#221B16);border:1px solid;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 2px 3px rgba(0,0,0,.4)}
 .ch .tip{visibility:hidden;opacity:0;transition:opacity .18s;position:absolute;bottom:135%;left:50%;transform:translateX(-50%);width:268px;z-index:9;background:linear-gradient(175deg,#2E2620,#241D18);border:1px solid #55483A;border-radius:9px;padding:11px 14px;font-size:12.5px;line-height:1.5;color:var(--text);box-shadow:0 1px 0 rgba(255,255,255,.06) inset,0 10px 30px rgba(0,0,0,.65);white-space:normal}
@@ -130,7 +133,7 @@ a{color:var(--brass);text-decoration:none;border-bottom:1px dotted var(--brass-d
 .ch .tip b{font-family:"Cormorant Garamond",Georgia,serif;font-size:15px}
 .ch .tip .rar{font-family:"Cinzel",Georgia,serif;text-transform:uppercase;letter-spacing:.1em;font-size:9.5px;margin-left:7px}
 .ch .tip .cond{display:block;margin-top:4px;color:var(--mut);font-size:11.5px;font-style:italic}
-.wch{display:inline-block;background:linear-gradient(180deg,var(--oak2),#221B16);border:1px solid #352C24;border-radius:13px;padding:2px 11px;font-size:12.5px;color:var(--mut);margin:0 4px 6px 0}
+.wch{display:inline-block;background:linear-gradient(180deg,var(--oak2),#221B16);border:1px solid #352C24;border-radius:13px;padding:2px 11px;font-size:13px;color:#C0AF9A;margin:0 4px 6px 0}
 ul{margin:0;padding-left:21px}li{margin-bottom:6px;font-size:14.5px}
 ul.plus li::marker{color:#A9BC6E}
 .fix{margin-bottom:13px;padding:9px 13px;border-left:3px solid var(--crimson);background:linear-gradient(90deg,rgba(139,38,53,.10),transparent 70%);border-radius:0 8px 8px 0}
@@ -154,32 +157,32 @@ ul.plus li::marker{color:#A9BC6E}
 </div>
 <div class="dstrip">{{полоса прогресса из profile.delta — только если есть изменения}}</div>
 
-<h2>Объём реплик</h2>
+<h2><!-- иконка секции -->Объём реплик</h2>
 <div class="grid"><!-- 4 тайла: слов в среднем / медиана / короткие / спеки --></div>
 
 <div class="cols">
-<div><h2>Топ императивов</h2><!-- .row-бары, латунь --></div>
-<div><h2>Маркеры тона</h2><!-- .row-бары: негатив ember, нейтраль латунь, позитив олива --></div>
+<div><h2><!-- иконка секции -->Топ императивов</h2><!-- .row-бары, латунь --></div>
+<div><h2><!-- иконка секции -->Маркеры тона</h2><!-- .row-бары: негатив ember, нейтраль латунь, позитив олива --></div>
 </div>
 
 <div class="duo">
-<div><h2>Часы активности</h2><div class="hours"><!-- 24 <i>, ночные .n --></div></div>
-<div><h2>Шкалы</h2><!-- ВСЕ гейджи из profile.gauges (.growl+.gauge+.needle), подписи-бакеты оттуда же, ссылки кликабельны --></div>
+<div><h2><!-- иконка секции -->Часы активности</h2><div class="hours"><!-- 24 <i>, ночные .n --></div></div>
+<div><h2><!-- иконка секции -->Шкалы</h2><!-- ВСЕ гейджи из profile.gauges (.growl+.gauge+.needle), подписи-бакеты оттуда же, ссылки кликабельны --></div>
 </div>
 
-<h2>Экономика и арсенал</h2>
+<h2><!-- иконка секции -->Экономика и арсенал</h2>
 <div class="grid6"><!-- 6 тайлов: токены / кэш-эфф / вызовы / инструменты / проекты / PR; секцию скрыть если economy null --></div>
 <div class="muted"><!-- строка 1: топ-3 инструмента · доли категорий · MCP% --></div>
 <div class="muted"><!-- строка 2: MCP-парк (arsenal.top_mcp_servers) · файлы (arsenal.top_extensions) · самая дорогая сессия (arsenal.top_sessions[0]) --></div>
 
-<h2>Боевые повадки</h2>
+<h2><!-- иконка секции -->Боевые повадки</h2>
 <div class="grid6"><!-- 12 тайлов (2 ряда): прерывания/100 · точка кипения №N (+% вскипевших) · оборотень ×K ·
 скриншоты/100 · дабл-тексты/100 · вызовы субагентов · «нет»-открытия % · код-свитчинг % ·
 вопрос-микс (что/как/почему %) · ошибки инструментов % · thinking-доля % · число ачивок.
 Тайлы с null-метрикой (напр. оборотень без ночной выборки) — опускать --></div>
 <div class="muted"><!-- строка: конюшня моделей (arsenal.models) · вход (arsenal.entrypoints) · план-режим · версий CC за период --></div>
 
-<h2>Словарь воина</h2>
+<h2><!-- иконка секции -->Словарь воина</h2>
 <div><!-- .wch чипы слово ×count; скрыть если пусто --></div>
 
 <h2>Достижения, {{N}}</h2>
@@ -199,6 +202,8 @@ ul.plus li::marker{color:#A9BC6E}
 
 Зеркалит сгенерированную карточку 1:1 — те же секции, те же числа, тот же выбор
 сильного/слабого; оформление — токенами хост-системы. Ничего не изобретать.
+Обязательно: кнопка/ссылка «Открыть HTML-карточку» на сгенерированный файл
+(`file:///<абсолютный путь>/ai-profile.html`) — рядом со ссылкой на GitHub в футере.
 
 ## Text fallback (консоль, когда нет ни браузера, ни превью, ни виджета)
 
