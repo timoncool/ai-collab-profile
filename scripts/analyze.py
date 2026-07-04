@@ -366,11 +366,14 @@ def compute_metrics(messages):
     morning = sum(c for h, c in hours_local.items() if 5 <= h <= 9)
     day = sum(c for h, c in hours_local.items() if 9 <= h <= 18)
     weekend = 0
+    weekdays_local = Counter()
     try:
         import datetime
         for msg in messages:
             if msg["ts"]:
-                if datetime.date.fromisoformat(msg["ts"][:10]).weekday() >= 5:
+                wd = datetime.date.fromisoformat(msg["ts"][:10]).weekday()
+                weekdays_local[wd] += 1
+                if wd >= 5:
                     weekend += 1
     except ValueError:
         pass
@@ -480,6 +483,7 @@ def compute_metrics(messages):
                          "en": round(100.0 * lat_chars / (ru_chars + lat_chars or 1))},
         "top_imperatives": top_imperatives,
         "hours_local": [hours_local.get(h, 0) for h in range(24)],
+        "weekdays": [weekdays_local.get(d, 0) for d in range(7)],
         "boiling_point_median": boiling_point,
         "boiled_sessions_pct": round(100.0 * boiled / rated_sessions, 1) if rated_sessions else 0,
         "werewolf_ratio": werewolf,

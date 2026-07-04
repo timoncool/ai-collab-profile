@@ -24,7 +24,8 @@ v1.5: новые метрики (формулы заморожены): reject_op
 идущие подряд без ответа ассистента между ними (состояние на файл сессии, до дедупа);
 question_types_pct — среди реплик с «?» доли содержащих «почему/зачем/why», «как/how»,
 «что/какой/what/which» (могут пересекаться); code_switching_pct — доля voice-реплик с ≥2
-кириллическими И ≥2 латинскими словами. Слои: top_mcp_servers (имя = второй сегмент
+кириллическими И ≥2 латинскими словами; weekdays — гистограмма реплик по дням недели
+(пн..вс, по дате timestamp). Слои: top_mcp_servers (имя = второй сегмент
 `mcp__server__tool`), top_extensions (расширение file_path из tool_use-инпутов),
 subagent_spawn_calls = вызовы Agent + Task + Workflow, top_sessions (топ-3 по output-токенам,
 имя = customTitle либо slug), entrypoints, versions_seen, branches_seen. Две новые шкалы:

@@ -17,7 +17,7 @@
    Дотошность, Совиность, Нетерпеливость, Кэш-скряга; последняя есть только при доступной
    экономике), с готовыми подписями-бакетами; не выдумывать свои формулы и тексты.
 2а. Все упоминания источников (arxiv, Anthropic docs) — КЛИКАБЕЛЬНЫЕ <a href>, не голый текст.
-2б. Каждый чип ачивки несёт стилизованный CSS-тултип (.tip): название + редкость + флейвор (desc_*) + условие (cond_*) из profile.json. Браузерный атрибут title не использовать.
+2б. Ачивки — РАЗВЁРНУТЫМИ карточками (.ac), без тултипов и hover: в каждой сразу видны иконка + название (цвет редкости) + редкость + флейвор (desc_*) + условие (cond_*) из profile.json. Сетка 3 колонки (.chips).
 3. Никаких картинок: ни аватаров, ни иконок, ни SVG, ни base64, ни внешних ресурсов.
 4. Отдельной секции «Рекомендации» НЕТ — советы живут парами в «Слабое → что делать».
 4а. Идентичность: строка под титулом «{класс} · {раса} ({доля}% реплик)» из profile.identity;
@@ -125,7 +125,13 @@ a{color:var(--brass);text-decoration:none;border-bottom:1px dotted var(--brass-d
 .gauge{height:12px;border-radius:6px;border:1px solid #322A23;background:linear-gradient(90deg,#6E7F46,#A08430 45%,#9C4A26 75%,#7E2B20);box-shadow:inset 0 2px 4px rgba(0,0,0,.45);position:relative}
 .needle{position:absolute;top:-4px;width:4px;height:20px;background:linear-gradient(180deg,#F0DCAC,#C9A962 60%,#8F7440);border-radius:2px;box-shadow:0 0 4px rgba(0,0,0,.6),0 0 8px rgba(201,169,98,.4)}
 .gnote{font-size:12px;margin:0 30px 9px 120px;color:#A8977F}
-.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.ac{background:linear-gradient(180deg,var(--oak2),#221B16);border:1px solid;border-radius:9px;padding:9px 12px 10px;box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 2px 3px rgba(0,0,0,.4)}
+.ac .nm{font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;font-size:16px;line-height:1.25}
+.ac .rar{font-family:"Cinzel",Georgia,serif;text-transform:uppercase;letter-spacing:.1em;font-size:8.5px;margin-left:7px;opacity:.85}
+.ac .fl{font-size:12.5px;color:#C0AF9A;line-height:1.4;margin-top:3px}
+.ac .cd{font-size:11.5px;color:var(--mut);font-style:italic;margin-top:2px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:4px 36px;align-items:start}
 .ch{position:relative;cursor:default;border-radius:15px;padding:3px 13px;font-size:13px;background:linear-gradient(180deg,var(--oak2),#221B16);border:1px solid;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 2px 3px rgba(0,0,0,.4)}
 .ch .tip{visibility:hidden;opacity:0;transition:opacity .18s;position:absolute;bottom:135%;left:50%;transform:translateX(-50%);width:268px;z-index:9;background:linear-gradient(175deg,#2E2620,#241D18);border:1px solid #55483A;border-radius:9px;padding:11px 14px;font-size:12.5px;line-height:1.5;color:var(--text);box-shadow:0 1px 0 rgba(255,255,255,.06) inset,0 10px 30px rgba(0,0,0,.65);white-space:normal}
 .ch .tip:after{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);border:7px solid transparent;border-top-color:#55483A}
@@ -167,8 +173,12 @@ ul.plus li::marker{color:#A9BC6E}
 
 <div class="duo">
 <div><h2><!-- иконка секции -->Часы активности</h2><div class="hours"><!-- 24 <i>, ночные .n --></div></div>
-<div><h2><!-- иконка секции -->Шкалы</h2><!-- ВСЕ гейджи из profile.gauges (.growl+.gauge+.needle), подписи-бакеты оттуда же, ссылки кликабельны --></div>
+<div><h2><!-- иконка секции -->Дни недели</h2><div class="hours" style="gap:6px"><!-- 7 <i> из metrics.weekdays (пн..вс), сб-вс .n --></div></div>
 </div>
+
+<h2><!-- иконка секции -->Шкалы</h2>
+<div class="g2"><!-- ВСЕ гейджи из profile.gauges в 2 колонки, каждый в своей <div>-ячейке:
+.growl (подпись+.gauge+.needle+значение) + .gnote (подпись-бакет, ссылки кликабельны) --></div>
 
 <h2><!-- иконка секции -->Экономика и арсенал</h2>
 <div class="grid6"><!-- 6 тайлов: токены / кэш-эфф / вызовы / инструменты / проекты / PR; секцию скрыть если economy null --></div>
@@ -186,7 +196,7 @@ ul.plus li::marker{color:#A9BC6E}
 <div><!-- .wch чипы слово ×count; скрыть если пусто --></div>
 
 <h2>Достижения, {{N}}</h2>
-<div class="chips"><!-- .ch чипы: инлайн-иконка (assets/achievement-icons, только path, fill=currentColor, фон-прямоугольники выбросить) + название + .tip тултип --></div>
+<div class="chips"><!-- .ac карточки (сетка 3 кол.): инлайн-иконка (assets/achievement-icons, только path, fill=currentColor, фоны выбросить) + название цветом редкости + .rar + .fl флейвор + .cd условие. Всё видно сразу, БЕЗ тултипов --></div>
 
 <h2 style="color:#A9BC6E">Сильное</h2>
 <ul class="plus"><!-- до 3 пунктов по правилам выбора --></ul>
